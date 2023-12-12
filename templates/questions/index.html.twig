@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions index{% endblock %}
+
+{% block body %}
+    <h1>Questions index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Created_at</th>
+                <th>Text</th>
+                <th>Image</th>
+                <th>IsChecked</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.title }}</td>
+                <td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ question.text }}</td>
+                <td>{{ question.image }}</td>
+                <td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
+                    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_questions_new') }}">Create new</a>
+{% endblock %}
