@@ -17,6 +17,12 @@ class QuestionsController extends AbstractController
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
     public function index(QuestionsRepository $questionsRepository): Response
     {
+
+        $isBanned = $this->getUser()->getIsBanned();
+
+        if ($isBanned) {
+            return $this->render('banned/index.html.twig');
+        }
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
         ]);
@@ -71,7 +77,7 @@ class QuestionsController extends AbstractController
     #[Route('/{id}', name: 'app_questions_delete', methods: ['POST'])]
     public function delete(Request $request, Questions $question, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
             $entityManager->remove($question);
             $entityManager->flush();
         }
