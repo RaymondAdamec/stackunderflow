@@ -42,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $gitHubProfile = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?bool $isBanned = false;
 
     public function getId(): ?int
     {
@@ -89,6 +89,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getIsBanned(): ?bool
+    {
+        return $this->isBanned;
+    }
+
+    public function setIsBanned(bool $isBanned): self
+    {
+        $this->isBanned = $isBanned;
+
+        return $this;
+    }
+
+    // public function banUser(User $user)
+    // {
+    //     $user->setIsBanned(true);
+    //     $this->getDoctrine()->getManager()->flush();
+
+    //     // Redirect or return a response
+    // }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -164,13 +184,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getStatus(): ?string
     {
-        return $this->status;
+        return $this->isBanned;
     }
-
-    public function setStatus(string $status): static
+    public function setStatus(bool $isBanned): self
     {
-        $this->status = $status;
-
+        $this->isBanned = $isBanned;
         return $this;
     }
 }

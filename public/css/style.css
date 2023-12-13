@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* *************************************
+*************************************
+******* FOOTER STARTS HERE *********
+*********************************** */
+footer {
+    background-color: #012d8baf;
+}
+
+.footerContainer {
+    width: 100%;
+    padding: 50px 20px 20px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.socialIcons {
+    display: flex;
+    justify-content: center;
+}
+
+.socialIcons a {
+    text-decoration: none;
+    padding: 7px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+.socialIcons a i {
+    font-size: 2em;
+    color: rgb(2, 4, 90);
+    opacity: 0.9;
+}
+
+/* *************************************
+ hover effect social media icons
+ ************************************ */
+.socialIcons a:hover {
+    background-color: #FF4500;
+    transition: 0.5s;
+}
+
+.socialIcons a:hover i {
+    color: white;
+    transition: 0.5s;
+}
+
+.footerNav {
+    display: flex;
+    justify-content: center;
+}
+
+.footerNav a {
+    color: white;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 1 .3em;
+    opacity: 0.7;
+    transition: 0.5s;
+}
+
+.footerNav a:hover {
+    opacity: 1;
+}
+
+.footerNav a {
+    transition: transform 0.3s;
+}
+
+.footerNav a:hover {
+    background-color: black;
+    transform: scale(1.1);
+}
+
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+}
+
+.footerBottom {
+    color: white;
+}
+
+.designer {
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400px;
+    margin: 0px 5px;
+}

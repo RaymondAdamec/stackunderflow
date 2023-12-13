@@ -20,7 +20,7 @@ class RatingsQuestions
     private ?Questions $fk_id_question = null;
 
     #[ORM\ManyToOne]
-    private ?user $fk_id_user = null;
+    private ?User $fk_id_user = null;
 
     public function getId(): ?int
     {
@@ -51,12 +51,12 @@ class RatingsQuestions
         return $this;
     }
 
-    public function getFkIdUser(): ?user
+    public function getFkIdUser(): ?User
     {
         return $this->fk_id_user;
     }
 
-    public function setFkIdUser(?user $fk_id_user): static
+    public function setFkIdUser(?User $fk_id_user): static
     {
         $this->fk_id_user = $fk_id_user;
 
