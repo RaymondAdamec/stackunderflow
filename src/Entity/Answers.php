@@ -87,6 +87,9 @@ class Answers
         return $this->fk_id_questions;
     }
 
+   
+
+
     public function setFkIdQuestions(?Questions $fk_id_questions): static
     {
         $this->fk_id_questions = $fk_id_questions;

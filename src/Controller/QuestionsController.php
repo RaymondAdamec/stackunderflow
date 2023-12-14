@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Answers;
 use App\Entity\Questions;
+use App\Entity\RatingsQuestions;
 use App\Form\QuestionsType;
 use App\Repository\QuestionsRepository;
 use DateTime;
@@ -55,10 +57,14 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_questions_show', methods: ['GET'])]
-    public function show(Questions $question): Response
+    public function show( $id, Questions $question, EntityManagerInterface $em): Response
     {
+        
+        $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
+       
         return $this->render('questions/show.html.twig', [
             'question' => $question,
+            'answers' => $answers,
         ]);
     }
 
@@ -84,6 +90,24 @@ class QuestionsController extends AbstractController
     public function delete(Request $request, Questions $question, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
+           
+            $answers = $entityManager->getRepository(Answers::class)->findBy(array('fk_id_questions' => $question));
+            foreach ($answers as $value){
+              
+                $entityManager->remove($value);
+                $entityManager->flush();
+            }
+
+            $rq = $entityManager->getRepository(RatingsQuestions::class)->findBy(array('fk_id_question' => $question));
+            foreach ($rq as $value){
+              
+                $entityManager->remove($value);
+                $entityManager->flush();
+            }
+           
+            
+           
+
             $entityManager->remove($question);
             $entityManager->flush();
         }
