@@ -79,7 +79,7 @@ class QuestionsController extends AbstractController
 
         $answers = $answersRepository->findBy(array('fk_id_questions' => $filter)); // get all answers based on question id
 
-        $sumAnswersVotesArray = [0];
+        $sumAnswersVotesArray = [];
         if ($answers) {
             foreach ($answers as $item) {
 
