@@ -34,7 +34,6 @@ class RatingsQuestionsController extends AbstractController
     {
         $question = $questionsRepository->find($id);
         $user = $this->getUser();
-
         $ratingsQuestion = new RatingsQuestions();
         $ratingsQuestion->setVotes(1);
         $ratingsQuestion->setFkIdQuestion($question);
@@ -44,7 +43,7 @@ class RatingsQuestionsController extends AbstractController
         $entityManager->persist($ratingsQuestion);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_ratings_questions_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_questions_show', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/voteb/{id}', name: 'app_ratings_questions_voteb', methods: ['GET'])]
@@ -62,6 +61,6 @@ class RatingsQuestionsController extends AbstractController
         $entityManager->persist($ratingsQuestion);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_ratings_questions_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_questions_show', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
 }

@@ -6,7 +6,10 @@ use App\Entity\Answers;
 use App\Entity\Questions;
 use App\Entity\RatingsQuestions;
 use App\Form\QuestionsType;
+use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
+use App\Repository\RatingsAnswersRepository;
+use App\Repository\RatingsQuestionsRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,6 +68,8 @@ class QuestionsController extends AbstractController
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
+            'sum' => $sumQuestionVotes,
+            'answersum' => $sumAnswersVotesArray,
         ]);
     }
 
