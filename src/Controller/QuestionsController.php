@@ -23,7 +23,6 @@ class QuestionsController extends AbstractController
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
     public function index(QuestionsRepository $questionsRepository): Response
     {
-
         $isBanned = $this->getUser()->getIsBanned();
 
         if ($isBanned) {
@@ -47,6 +46,7 @@ class QuestionsController extends AbstractController
         $question->setFkIdUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $question->setGotAnyAnswer(false);
             $entityManager->persist($question);
             $entityManager->flush();
 
