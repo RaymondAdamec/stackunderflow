@@ -15,14 +15,14 @@ class QuestionsType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('created_at')
+            // ->add('created_at')
             ->add('text')
             ->add('image')
             ->add('isChecked')
-            ->add('fk_id_user', EntityType::class, [
-                'class' => user::class,
-'choice_label' => 'id',
-            ])
+            //             ->add('fk_id_user', EntityType::class, [
+            //                 'class' => user::class,
+            // 'choice_label' => 'id',
+            //             ])
         ;
     }
 

@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>:black_circle:️</text></svg>">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/fd5dec3618.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css"/>
-        <link rel="stylesheet" href="{{asset('css/home.css')}}" type="text/css"/>
-        {% block stylesheets %}
-        {% endblock %}
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">StackUnderFlow</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Dashboard-Admin</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href={{ path('app_questions_index') }}>Questions</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Filter Tags
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">HTML</a></li>
-                    <li><a class="dropdown-item" href="#">CSS</a></li>
-                    <li><a class="dropdown-item" href="#">PHP</a></li>
-                    <li><a class="dropdown-item" href="#">Javascript</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Symfony</a></li>
-                    <li><a class="dropdown-item" href="#">Angular</a></li>
-                </ul>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <a href={{ path('app_login') }} class="btn btn-success me-2">Login</a>
-                <a href={{ path('app_register') }} class="btn btn-outline-success me-2">Register</a>
-                <a href={{ path('app_logout') }} class="btn btn-danger">Logout</a>
-            </form>
-            </div>
-        </div>
-        </nav>
-        {% block body %}{% endblock %}
-        {# ***************************************************
-**************fOOTER STARTS HERE***************** #}
-            <footer>
-                <div class="footerContainer">
-                    <div class="socialIcons">
-                        <a href="">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-google-plus"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </div>
-                    <div class="footerNav">
-                        <a href="">Home</a>
-                        <a href="">About</a>
-                        <a href="">Community</a>
-                        <a href="">Contact us</a>
-                    </div>
-                </div>
-            </footer>
-            <div class="footerBottom">
-                <p>Copyright &copy;2023; Designed by<span class="designer">Team 6</span>
-                </p>
-            </div>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>:black_circle:️</text></svg>">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+		<script src="https://kit.fontawesome.com/fd5dec3618.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css"/>
+		<link rel="stylesheet" href="{{asset('css/home.css')}}" type="text/css"/> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		</head>
+		<body>
+			{# ***************************************************
+																														***************NAVBAR STARTS HERE***************** #}
+			<div class="navbar">
+				<div class="logo">
+					<img class="homelogo1" src="{{ asset('/picture_directory/logo1.jpeg') }}" alt="LOGO">
+				</div>
+				<h1>StackUnderFlow</h1>
+				<a href="{{ path('app_home') }}">Home</a>
+				<a href="{{ path('app_about') }}">About</a>
+				<a href="{{ path('app_community') }}">Community</a>
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Sign up
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
+						<a class="dropdown-item" href="{{ path('app_login') }}">Login</a>
+					</div>
+				</div>
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="{{ path('app_questions_index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						FAQ's
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/?type=leisure">Html</a>
+						<a class="dropdown-item" href="/?type=music">CSS,SCSS,SASS</a>
+						<a class="dropdown-item" href="/?type=festival">JavaScript</a>
+						<a class="dropdown-item" href="/?type=educational">PHP</a>
+						<hr class="dropdown-divider">
+						<a class="dropdown-item" href="/?type=sports">Angular</a>
+						<a class="dropdown-item" href="/?type=sports">Symfony</a>
+					</div>
+				</div>
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						My account
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="/?type=leisure">My profile</a>
+						<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				</div>
+			</div>
+			{% block body %}{% endblock %}
+			{# ***************************************************
+																**************fOOTER STARTS HERE***************** #}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </body>
-</html>
+			<footer>
+				<div class="footerContainer">
+					<div class="socialIcons">
+						<a href="">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+						<a href="">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+						<a href="">
+							<i class="fa-brands fa-twitter"></i>
+						</a>
+						<a href="">
+							<i class="fa-brands fa-google-plus"></i>
+						</a>
+						<a href="">
+							<i class="fa-brands fa-youtube"></i>
+						</a>
+					</div>
+					<div class="footerNav">
+						<a href="">Home</a>
+						<a href="">About</a>
+						<a href="">Community</a>
+						<a href="">Contact us</a>
+
+					</div>
+				</div>
+			</footer>
+			<div class="footerBottom">
+				<p>Copyright &copy;2023; Designed by<span class="designer">Team 6</span>
+				</p>
+			</div>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		</body>
+	</html>

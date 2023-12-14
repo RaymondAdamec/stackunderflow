@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Questions;
 use App\Form\QuestionsType;
 use App\Repository\QuestionsRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,14 @@ class QuestionsController extends AbstractController
     #[Route('/new', name: 'app_questions_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $now = new DateTime();
         $question = new Questions();
+
         $form = $this->createForm(QuestionsType::class, $question);
         $form->handleRequest($request);
+        $question->setCreatedat($now);
+        $question->setFkIdUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($question);

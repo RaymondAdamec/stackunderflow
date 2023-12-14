@@ -1,111 +1,158 @@
 {% extends 'base.html.twig' %}
-{% block title %}Questions index{% endblock %}
-{% block body %}
-    <h1 class="d-flex justify-content-center">All Questions</h1>
-    <div class="m-3 d-flex justify-content-center">
-    <a href="{{ path('app_questions_new') }}" class="btn btn-info">Ask Question</a>
-    </div>
-    <div class="row mx-3">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <div class="card">
-            <div class="card-body">
-            <h5 class="card-title d-flex justify-content-center mb-4">Frequently searched Tags</h5>
-          <div class="row">
-                    <div class="col-6">
-                        <ul>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">CSS</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">HTML</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Javascript</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">PHP</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Python</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6">
-                        <ul>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Ajax</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">JAVA</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Typescript</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Symfony</a></li>
-                            <li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Angular</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center mb-4">Statistics</h5>
-                <p class="card-text">
-                <div class="row"><div class="col-6">
-                        <img src="https://cdn.pixabay.com/photo/2013/07/12/14/18/productivity-148197_1280.png" style="width: 250px; height: 195px" alt="">
-                    </div>
-                    <div class="col-6">
-                        <img src="https://cdn.pixabay.com/photo/2013/07/12/14/18/productivity-148197_1280.png" style="width: 250px; height: 195px" alt="">
-                    </div>
-                    </div>
-                </p>
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="card my-3">
-            <div class="row">
-                <div class="col-1 d-flex flex-column align-items-center justify-content-center">
-                <p><img src="/assets/thumbs-up-35.png" href="" alt=""></p>
-                <p></p>
-                <p><img src="/assets/thumbs-down-35.png" href="" alt=""></p>
-            </div>
-            <div class="col-11 border-start ps-0">
-                <div class="card-header">
-                    Question Title
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                    <p>The Question goes here...</p>
-                    <hr>
-                    <div class="row">
-                    <div class="col-6 footer-card justify-content-start">Tags show here</div>
-                    <div class="col-6 footer-card d-flex justify-content-end">Created at show here</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            </div>
-    </div>
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Created_at</th>
-                <th>Text</th>
-                <th>Image</th>
-                <th>IsChecked</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for question in questions %}
-            <tr>
-                <td>{{ question.id }}</td>
-                <td>{{ question.title }}</td>
-                <td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ question.text }}</td>
-                <td>{{ question.image }}</td>
-                <td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
-                    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table> #}
+
+{% block title %}Questions index
 {% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Questions index</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Created_at</th>
+					<th>Text</th>
+					<th>Image</th>
+					<th>IsChecked</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for question in questions %}
+					<tr>
+						<td>{{ question.id }}</td>
+						<td>{{ question.title }}</td>
+						<td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ question.text }}</td>
+						<td>{{ question.image }}</td>
+						<td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
+						<td>
+							<a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
+							<a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('app_questions_new') }}">Create new</a>
+	</div>
+{% endblock %}
+{% block title %}Questions index
+{% endblock %}
+{% block body %}
+	<h1 class="d-flex justify-content-center">All Questions</h1>
+	<div class="m-3 d-flex justify-content-center">
+		<a href="{{ path('app_questions_new') }}" class="btn btn-info">Ask Question</a>
+	</div>
+	<div class="row mx-3">
+		<div class="col-sm-6 mb-3 mb-sm-0">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title d-flex justify-content-center mb-4">Frequently searched Tags</h5>
+					<div class="row">
+						<div class="col-6">
+							<ul>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">CSS</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">HTML</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Javascript</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">PHP</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Python</a></li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<ul>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Ajax</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">JAVA</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Typescript</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Symfony</a></li>
+								<li><a href="!Fill in FILTER links" class="mb-2 btn btn-primary btn-sm">Angular</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title d-flex justify-content-center mb-4">Statistics</h5>
+					<p class="card-text">
+						<div class="row">
+							<div class="col-6">
+								<img src="https://cdn.pixabay.com/photo/2013/07/12/14/18/productivity-148197_1280.png" style="width: 250px; height: 195px" alt="">
+							</div>
+							<div class="col-6">
+								<img src="https://cdn.pixabay.com/photo/2013/07/12/14/18/productivity-148197_1280.png" style="width: 250px; height: 195px" alt="">
+							</div>
+						</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="card my-3">
+			<div class="row">
+				<div class="col-1 d-flex flex-column align-items-center justify-content-center">
+					<p><img src="/assets/thumbs-up-35.png" href="" alt=""></p>
+					<p></p>
+					<p><img src="/assets/thumbs-down-35.png" href="" alt=""></p>
+				</div>
+				<div class="col-11 border-start ps-0">
+					<div class="card-header">
+						Question Title
+					</div>
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>The Question goes here...</p>
+							<hr>
+							<div class="row">
+								<div class="col-6 footer-card justify-content-start">Tags show here</div>
+								<div class="col-6 footer-card d-flex justify-content-end">Created at show here</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{# <table class="table">
+		        <thead>
+		            <tr>
+		                <th>Id</th>
+		                <th>Title</th>
+		                <th>Created_at</th>
+		                <th>Text</th>
+		                <th>Image</th>
+		                <th>IsChecked</th>
+		                <th>actions</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        {% for question in questions %}
+		            <tr>
+		                <td>{{ question.id }}</td>
+		                <td>{{ question.title }}</td>
+		                <td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+		                <td>{{ question.text }}</td>
+		                <td>{{ question.image }}</td>
+		                <td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
+		                <td>
+		                    <a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
+		                    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+		                </td>
+		            </tr>
+		        {% else %}
+		            <tr>
+		                <td colspan="7">no records found</td>
+		            </tr>
+		        {% endfor %}
+		        </tbody>
+		    </table> #}
+	{% endblock %}

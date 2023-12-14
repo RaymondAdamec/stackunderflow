@@ -1,8 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Controller!{% endblock %}
+{% block title %}HomePage!
+{% endblock %}
 
 {% block body %}
-<p>hello world</p>
-
-{% endblock %}
+	<div class="hero">
+		<img class="heropic" src="{{ asset('/picture_directory/HomeBaner.jpg') }}" alt="heroBAnner">
+		<h1 class="hero-header text-center">
+			<em>“Knowledge is the true organ of sight,<br>
+				don’t reinvent the wheel"</em>
+		</h1>
+	</div>
+	<br>
+	<div class="container">
+		<h1 class="text-center">Welcome to StackUnderFlow</1>
+		<br>
+		<h3>We are a public platform building the definitive collection of coding questions & answers. A community-based space to find and contribute answers to technical challenges, and one of the most popular websites in the world.</h3>
+		<br>
+		<div class="container1">
+			<div class="item-2">
+				<img class="filler2" src="{{ asset('/picture_directory/comunity2.jpeg') }}" alt="filler2">
+				<h3 class="header3">JOIN OUR COMUNITY<h3></div>
+					<div class="item-2">
+						<img class="filler2" src="{{ asset('/picture_directory/Q&A1.jpeg') }}" alt="filler2">
+						<h3 class="header3">CHECK OUR Q&A's Forum<h3></div>
+						</div>
+						<br>
+						<div class="container2 row row-cols-3">
+							<div class="coment">
+								<i class="fa-solid fa-quote-left"></i>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. provident illum asperiores deleniti reprehenderit ipsam ducimus veritatis fugiat dolorum dolorem iure, laboriosam molestias iste nobis! Dolores expedita, nemo laborum harum repudiandae omnis quae aspernatur adipisci, ipsum corporis reiciendis. Sapiente iusto molestias in, illo ipsam hic dignissimos? Perferendis, neque.</p>
+							</div>
+							<div class="coment">
+								<i class="fa-solid fa-quote-left"></i>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores optio, soluta odit neque impedit consequatur odio facere magni! Repudiandae doloremque quas natus nobis iusto architecto beatae! Voluptatem quasi sint placeat veniam provident eius inventore animi, minus illum dicta dolore quos magni est libero perferendis ipsa a vero veritatis at enim.</p>
+							</div>
+							<div class="coment">
+								<i class="fa-solid fa-quote-left"></i>
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita repellendus fugiat eum deleniti dolorum dignissimos culpa est obcaecati molestias excepturi voluptates itaque et ipsum explicabo, doloremque praesentium quibusdam accusantium necessitatibus reiciendis maxime dolore a? Accusamus explicabo illo incidunt eveniet, placeat praesentium quod provident dolore neque voluptatum suscipit? Itaque, facere architecto?</p>
+							</div>
+						</div>
+					</div>
+				{% endblock %}
