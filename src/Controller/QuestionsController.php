@@ -60,10 +60,41 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_questions_show', methods: ['GET'])]
-    public function show($id, Questions $question, EntityManagerInterface $em): Response
+    public function show($id, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
     {
 
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
+
+
+        // needed for displaying the total votes in questions
+        $filter = $questionsRepository->find($id);
+        $voting = $ratingsQuestionsRepository->findBy(["fk_id_question" => $filter]);
+        $sumQuestionVotes = 0;
+        foreach ($voting as $vote) {
+            $sumQuestionVotes += $vote->getVotes();
+        }
+
+        // needed for displaying the total votes in answers
+        $filter = $questionsRepository->find($id); //get the question id
+
+        $answers = $answersRepository->findBy(array('fk_id_questions' => $filter)); // get all answers based on question id
+
+        $sumAnswersVotesArray = [0];
+        if ($answers) {
+            foreach ($answers as $item) {
+
+                $voting = $ratingsAnswersRepository->findBy(["fk_id_answers" => $item->getId()]); // get all votes of one answer
+
+                $sumAnswersVotes = 0;
+
+                foreach ($voting as $vote) { // count all votes of one answer
+                    $sumAnswersVotes += $vote->getVotes();
+                }
+
+                $sumAnswersVotesArray[] = $sumAnswersVotes;
+            }
+        }
+
 
         return $this->render('questions/show.html.twig', [
             'question' => $question,
