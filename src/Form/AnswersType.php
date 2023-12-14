@@ -20,12 +20,12 @@ class AnswersType extends AbstractType
             ->add('text')
             ->add('fk_id_user', EntityType::class, [
                 'class' => User::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
-            ->add('fk_id_questions', EntityType::class, [
-                'class' => Questions::class,
-'choice_label' => 'id',
-            ])
+            //             ->add('fk_id_questions', EntityType::class, [
+            //                 'class' => Questions::class,
+            // 'choice_label' => 'id',
+            //             ])
         ;
     }
 

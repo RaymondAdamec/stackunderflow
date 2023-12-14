@@ -11,9 +11,12 @@
         <div class="card my-3">
             <div class="row">
                 <div class="col-1 d-flex flex-column align-items-center justify-content-center">
-                    <p><img src="/assets/thumbs-up-35.png" href="/ratingsquestions/voteg/{{ question.id }}" alt=""></p>
+                    <p><a href="/ratingsquestions/voteg/{{ question.id }}" > <img src="/assets/thumbs-up-35.png"  alt=""></a></p>
                     <p></p>
-                    <p><img src="/assets/thumbs-down-35.png" href="/ratingsquestions/voteb/{{ question.id }}" alt=""></p>
+                    <p><a href="/ratingsquestions/voteb/{{ question.id }}" > <img src="/assets/thumbs-down-35.png"  alt=""></a></p>
+                    <p>Rating: {{ sum }}</p>
+                        
+                    
                 </div>
                 <div class="col-11 border-start ps-0">
                     <div class="card-header" >
@@ -25,6 +28,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-6 footer-card justify-content-start">Tags show here</div>
+                                
                                 <div class="col-6 footer-card d-flex justify-content-end">{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
                             </div>
                         </blockquote>
@@ -42,9 +46,11 @@
             <div class="card my-3">
                 <div class="row">
                     <div class="col-1 d-flex flex-column align-items-center justify-content-center">
-                        <p><img src="/assets/thumbs-up-35.png" href="" alt=""></p>
+                        <p><a href="/ratingsanswers/voteg/{{ answer.id }}" > <img src="/assets/thumbs-up-35.png"  alt=""></a></p>
                         <p></p>
-                        <p><img src="/assets/thumbs-down-35.png" href="" alt=""></p>
+                        <p><a href="/ratingsanswers/voteb/{{ answer.id }}" > <img src="/assets/thumbs-down-35.png"  alt=""></a></p>
+                        <p>Rating: {{ answersum[loop.index0] }}</p>
+                    
                     </div>
                     <div class="col-11 border-start ps-0">
                         <div class="card-header">
@@ -67,7 +73,7 @@
 
         {# Answer button #}
         <div class="d-flex justify-content-center">
-            <a href="{{ path('app_answers_new') }}" class="btn btn-info">Post Answer</a>
+            <a href="/answers/new/{{ question.id }}" class="btn btn-info">Post Answer</a>
         </div>
     </div>
 
