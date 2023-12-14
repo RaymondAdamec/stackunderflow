@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Answers;
 use App\Form\AnswersType;
 use App\Repository\AnswersRepository;
+use App\Repository\QuestionsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,27 +23,31 @@ class AnswersController extends AbstractController
             'answers' => $answersRepository->findAll(),
         ]);
     }
-
-    #[Route('/new', name: 'app_answers_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_answers_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, $id, QuestionsRepository $questionsRepository): Response
     {
+
+        $question = $questionsRepository->find($id);
+        // dd($question);
+        // $qq = $question->getId();
+        // // dd($qq);
         $answer = new Answers();
+
         $form = $this->createForm(AnswersType::class, $answer);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $answer->setFkIdQuestions($question);
+            // dd($answer);
             $entityManager->persist($answer);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_questions_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('answers/new.html.twig', [
             'answer' => $answer,
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_answers_show', methods: ['GET'])]
     public function show(Answers $answer): Response
     {
@@ -49,33 +55,27 @@ class AnswersController extends AbstractController
             'answer' => $answer,
         ]);
     }
-
     #[Route('/{id}/edit', name: 'app_answers_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Answers $answer, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AnswersType::class, $answer);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('answers/edit.html.twig', [
             'answer' => $answer,
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_answers_delete', methods: ['POST'])]
     public function delete(Request $request, Answers $answer, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $answer->getId(), $request->request->get('_token'))) {
             $entityManager->remove($answer);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
     }
 }
