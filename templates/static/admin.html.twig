@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adming Static page
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="container6">
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/userAvatar.jpeg')}}" alt="test1">
+				<h3 class="filler">Members</h3>
+			</div>
+
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/Q&A1.jpeg')}}" alt="test1">
+				<h3 class="filler">Questions</h3>
+			</div>
+
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
+				<h3 class="filler">Votes</h3>
+			</div>
+
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/post.jpeg')}}" alt="test1">
+				<h3 class="filler">Posts</h3>
+			</div>
+
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
+				<h3 class="filler">Optional</h3>
+			</div>
+
+			<div class="item6 text-center">
+				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
+				<h3 class="filler">optional2</h3>
+			</div>
+		</div>
+
+		<div class="table-div">
+			<div class="left-tables">
+				<div class="header text-center">USER DASHBOARD</div>
+				<table class="table table-info table-striped-columns">
+					<thead>
+						<tr>
+							<th scope="col">User ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Last name</th>
+							<th scope="col">email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-info table-striped-columns">
+					<div class="header text-center">Q&A DASHBOARD</div>
+					<thead>
+						<tr>
+							<th scope="col">Question ID</th>
+							<th scope="col">Topic</th>
+							<th scope="col">Created</th>
+							<th scope="col">Answered</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>...</td>
+							<td>...</td>
+							<td>...</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="right-table">
+				<table class="table-user table-sm">
+					<thead>
+						<h2>Recent users</h2>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Id</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+						</tr>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+						</tr>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+				<table class="table-question table-sm">
+					<thead>
+						<h2>Recent topics/questions</h2>
+						<tr>
+							<th scope="col">Topic</th>
+							<th scope="col">Id</th>
+
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+						</tr>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+						</tr>
+						<tr>
+
+							<td>...</td>
+							<td>...</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

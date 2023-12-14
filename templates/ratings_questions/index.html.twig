@@ -1,33 +1,38 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 
-{% block title %} RatingsQuestions index {% endblock %} 
+{% block title %}
+	RatingsQuestions index
+{% endblock %}
 
 
 {% block body %}
-<h1>RatingsQuestions index</h1>
+	<div class="container">
+		<h1>RatingsQuestions index</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Votes</th>
-      <th>Question</th>
-      <th>User</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for ratings_question in ratings_questions %}
-    <tr>
-      <td>{{ ratings_question.id }}</td>
-      <td>{{ ratings_question.Votes }}</td>
-      <td>{{ ratings_question.fkIdQuestion.title }}</td>
-      <td>{{ ratings_question.fkIdUser.email }}</td>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Votes</th>
+					<th>Question</th>
+					<th>User</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ratings_question in ratings_questions %}
+					<tr>
+						<td>{{ ratings_question.id }}</td>
+						<td>{{ ratings_question.Votes }}</td>
+						<td>{{ ratings_question.fkIdQuestion.title }}</td>
+						<td>{{ ratings_question.fkIdUser.email }}</td>
 
 
-    </tr>
-    {% else %}
-    <tr>
-      <td colspan="3">no records found</td>
-    </tr>
-    {% endfor %} {% endblock %}
- 
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</div>
+	{% endblock %}
