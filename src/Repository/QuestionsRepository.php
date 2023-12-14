@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Questions;
+use App\Entity\Answers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,20 +22,7 @@ class QuestionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Questions::class);
     }
 
-    public function findInactiveQuestions($hours)
-    {
-        $dateTime = new \DateTime();
-        $dateTime->modify("-{$hours} hours");
 
-        return $this->createQueryBuilder('q')
-            ->leftJoin('q.votes', 'v') // Assuming votes is the relationship property
-            ->andWhere('q.createdAt < :dateTime')
-            ->andWhere('q.answers IS EMPTY') // Assuming answers is the relationship property
-            ->andWhere('v.id IS NULL') // Check if there are no votes
-            ->setParameter('dateTime', $dateTime)
-            ->getQuery()
-            ->getResult();
-    }
 
     //    /**
     //     * @return Questions[] Returns an array of Questions objects
@@ -60,4 +48,17 @@ class QuestionsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findInactiveQuestions()
+    {
+        $dateTime = new \DateTime();
+        $dateTime->modify("-2 days");
+
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.created_at < :dateTime')
+            ->andWhere('q.gotAnyAnswer = 0')
+            ->setParameter('dateTime', $dateTime)
+            ->getQuery()
+            ->getResult();
+    }
 }

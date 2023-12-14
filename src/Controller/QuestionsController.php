@@ -20,7 +20,6 @@ class QuestionsController extends AbstractController
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
     public function index(QuestionsRepository $questionsRepository): Response
     {
-
         $isBanned = $this->getUser()->getIsBanned();
 
         if ($isBanned) {
@@ -44,6 +43,7 @@ class QuestionsController extends AbstractController
         $question->setFkIdUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $question->setGotAnyAnswer(false);
             $entityManager->persist($question);
             $entityManager->flush();
 
@@ -57,11 +57,11 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_questions_show', methods: ['GET'])]
-    public function show( $id, Questions $question, EntityManagerInterface $em): Response
+    public function show($id, Questions $question, EntityManagerInterface $em): Response
     {
-        
+
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
-       
+
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
@@ -90,23 +90,23 @@ class QuestionsController extends AbstractController
     public function delete(Request $request, Questions $question, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
-           
+
             $answers = $entityManager->getRepository(Answers::class)->findBy(array('fk_id_questions' => $question));
-            foreach ($answers as $value){
-              
+            foreach ($answers as $value) {
+
                 $entityManager->remove($value);
                 $entityManager->flush();
             }
 
             $rq = $entityManager->getRepository(RatingsQuestions::class)->findBy(array('fk_id_question' => $question));
-            foreach ($rq as $value){
-              
+            foreach ($rq as $value) {
+
                 $entityManager->remove($value);
                 $entityManager->flush();
             }
-           
-            
-           
+
+
+
 
             $entityManager->remove($question);
             $entityManager->flush();

@@ -32,6 +32,9 @@ class Questions
     #[ORM\ManyToOne]
     private ?User $fk_id_user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $gotAnyAnswer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Questions
     public function setFkIdUser(?User $fk_id_user): static
     {
         $this->fk_id_user = $fk_id_user;
+
+        return $this;
+    }
+
+    public function isGotAnyAnswer(): ?bool
+    {
+        return $this->gotAnyAnswer;
+    }
+
+    public function setGotAnyAnswer(?bool $gotAnyAnswer): static
+    {
+        $this->gotAnyAnswer = $gotAnyAnswer;
 
         return $this;
     }

@@ -29,8 +29,8 @@ class DeleteInactiveQuestionsCommand extends Command
     {
         $repository = $this->entityManager->getRepository(Questions::class);
 
-        $inactiveQuestions = $repository->findInactiveQuestions(48); // Implement your custom repository method
-
+        $inactiveQuestions = $repository->findInactiveQuestions(); // Implement your custom repository method
+        dd($inactiveQuestions);
         foreach ($inactiveQuestions as $question) {
             $this->entityManager->remove($question);
         }
