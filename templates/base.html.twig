@@ -10,11 +10,12 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://kit.fontawesome.com/fd5dec3618.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css"/>
-		<link rel="stylesheet" href="{{asset('css/home.css')}}" type="text/css"/> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		<link rel="stylesheet" href="{{asset('css/home.css')}}" type="text/css"/>
+		<link rel="stylesheet" href="{{asset('css/admin.css')}}" type="text/css"/> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
 		</head>
 		<body>
 			{# ***************************************************
-																														***************NAVBAR STARTS HERE***************** #}
+														***************NAVBAR STARTS HERE***************** #}
 			<div class="navbar">
 				<div class="logo">
 					<img class="homelogo1" src="{{ asset('/picture_directory/logo1.jpeg') }}" alt="LOGO">
@@ -58,7 +59,7 @@
 			</div>
 			{% block body %}{% endblock %}
 			{# ***************************************************
-																**************fOOTER STARTS HERE***************** #}
+																												**************fOOTER STARTS HERE***************** #}
 
 			<footer>
 				<div class="footerContainer">

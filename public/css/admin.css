@@ -1,0 +1,67 @@
+/* *************************************************
+*******##########*** ADMIN DASHBOARD ***###########****
+***************************************************/
+.container {
+    margin-bottom: 30px;
+}
+
+.container6 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+}
+
+.item6 {
+    width: 33.3%;
+    padding: 5px;
+    border: 1px;
+
+
+    background-image: linear-gradient(90deg, rgba(0, 0, 255, 0.411) 0%, rgba(128, 0, 128, 0.685) 100%);
+
+}
+
+.filler6 {
+    width: 150px;
+    height: auto;
+}
+
+.table-div {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 100px;
+}
+
+.left-tables {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-table {
+    width: 49%;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th,
+td {
+    border: 1px solid black;
+}
+
+.table-user th:nth-child(1),
+.table-question th:nth-child(1),
+.table-user td:nth-child(1),
+.table-question td:nth-child(1) {
+    width: 1%;
+    /* Adjust this value as needed */
+    white-space: nowrap;
+}
