@@ -10,26 +10,46 @@ use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
 use App\Repository\RatingsAnswersRepository;
 use App\Repository\RatingsQuestionsRepository;
+use App\Repository\TagsRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/questions')]
 class QuestionsController extends AbstractController
 {
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
-    public function index(QuestionsRepository $questionsRepository): Response
+    public function index(QuestionsRepository $questionsRepository,): Response
     {
+
+        // check if user is banned
         $isBanned = $this->getUser()->getIsBanned();
+
+        // get an array with every question (Id) with the corresponding tag title 
+        $tagQuestionArray = [];
+        $allQuestions = $questionsRepository->findAll();
+        foreach ($allQuestions as $question) {
+            $questionsTags = $questionsRepository->find($question->getId())->getTags();
+            for ($i = 0; $i < count($questionsTags); $i++) {
+                $questionId = $question->getId();
+                $tagTitle = $questionsRepository->find($question->getId())->getTags()[$i]->getTitle();
+                $tagQuestionArray[] = ["questionid" => $questionId, 'tagTitle' => $tagTitle];
+            }
+        }
+
+
 
         if ($isBanned) {
             return $this->render('banned/index.html.twig');
         }
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
+            'tagQuestionArray' => $tagQuestionArray
         ]);
     }
 
@@ -46,6 +66,9 @@ class QuestionsController extends AbstractController
         $question->setFkIdUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($form->get("tags")->getData() as $tag) {
+                $question->addTag($tag);
+            }
             $question->setGotAnyAnswer(false);
             $entityManager->persist($question);
             $entityManager->flush();
@@ -95,12 +118,18 @@ class QuestionsController extends AbstractController
             }
         }
 
+        $user = $this->getUser();
+        $testVar = false;
+        if ($user == $question->getFkIdUser()) {
+            $testVar = true;
+        }
 
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
             'sum' => $sumQuestionVotes,
             'answersum' => $sumAnswersVotesArray,
+            'testVar' => $testVar
         ]);
     }
 
