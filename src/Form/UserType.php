@@ -13,14 +13,11 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
             ->add('firstName')
             ->add('lastName')
             ->add('picture')
             ->add('gitHubProfile')
-            ->add('isBanned')
-        ;
+            ->add('isBanned');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
