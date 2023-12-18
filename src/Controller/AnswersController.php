@@ -51,10 +51,24 @@ class AnswersController extends AbstractController
     #[Route('/{id}', name: 'app_answers_show', methods: ['GET'])]
     public function show(Answers $answer): Response
     {
+
+        $user = $this->getUser();
+        $test2Var = false;
+        if ($user == $answer->getFkIdUser()) {
+            $test2Var = true;
+        }
+
+
         return $this->render('answers/show.html.twig', [
             'answer' => $answer,
+            'test2var' => $test2Var,
         ]);
     }
+
+
+
+
+
     #[Route('/{id}/edit', name: 'app_answers_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Answers $answer, EntityManagerInterface $entityManager): Response
     {

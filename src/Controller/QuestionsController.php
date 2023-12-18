@@ -10,6 +10,7 @@ use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
 use App\Repository\RatingsAnswersRepository;
 use App\Repository\RatingsQuestionsRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +61,7 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_questions_show', methods: ['GET'])]
-    public function show($id, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
+    public function show($id, UserRepository $user, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
     {
 
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
@@ -95,12 +96,19 @@ class QuestionsController extends AbstractController
             }
         }
 
+        $user = $this->getUser();
+        $testVar = false;
+        if ($user == $question->getFkIdUser()) {
+            $testVar = true;
+        }
+
 
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
             'sum' => $sumQuestionVotes,
             'answersum' => $sumAnswersVotesArray,
+            'testVar' => $testVar
         ]);
     }
 

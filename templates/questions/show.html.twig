@@ -57,9 +57,12 @@
 
 		<form method="post" action="{{ path('app_questions_delete', {'id': question.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
 			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ question.id) }}">
-			<div class="text">
-				<button class="btn btn-danger">Delete</button>
-			</div>
+			{% if testVar %}
+				<div class="text">
+					<button class="btn btn-danger">Delete</button>
+				</div>
+			{% endif %}
+
 		</form>
 		{# Answers #}
 		<h1 class="d-flex justify-content-center">Answers
@@ -86,7 +89,7 @@
 					</div>
 					<div class="col-11 border-start ps-0">
 						<div class="card-header">
-							{{ answer.title }}
+							<a href="{{ path('app_answers_show', {'id': answer.id}) }}">{{ answer.title }}</a>
 						</div>
 						<div class="card-body">
 							<blockquote class="blockquote mb-0">
@@ -116,27 +119,4 @@
 		</div>
 	</div>
 
-	{# Commented-out section #}
-	{# 
-																																												    <div class="container">
-																																												        <tr>
-																																												            <th>Text</th>
-																																												            <td>{{ question.text }}</td>
-																																												        </tr>
-																																												        <tr>
-																																												            <th>Image</th>
-																																												            <td>{{ question.image }}</td>
-																																												        </tr>
-																																												        <tr>
-																																												            <th>IsChecked</th>
-																																												            <td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
-																																												        </tr>
-																																												    </div>
-																																												    
-																																												    <a href="{{ path('app_questions_index') }}">back to list</a>
-																																												    
-																																												    <a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
-																																												    
-																																												    {{ include('questions/_delete_form.html.twig') }}
-																																												    #}
 {% endblock %}
