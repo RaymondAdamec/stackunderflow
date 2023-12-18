@@ -174,9 +174,6 @@ class QuestionsController extends AbstractController
                 $entityManager->flush();
             }
 
-
-
-
             $entityManager->remove($question);
             $entityManager->flush();
         }

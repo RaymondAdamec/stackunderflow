@@ -68,6 +68,37 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route("/user/{id}/ban", name: 'app_user_ban', methods: ['GET', 'POST'])]
+    public function banUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $user->setIsBanned(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_index');
+    }
+
+    #[Route("/user/{id}/unban", name: 'app_user_unban', methods: ['GET', 'POST'])]
+    public function unbanUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $user->setIsBanned(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_index');
+    }
+
+    #[Route("/user/{id}/ban48hours", name: 'app_user_ban_48_hours', methods: ['GET', 'POST'])]
+    public function banUserFor48Hours(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $user->setIsBanned(true);
+
+        $TimedBan = new \DateTime('+48 hours');
+        $user->setTimedBan($TimedBan);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_index');
+    }
+
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
