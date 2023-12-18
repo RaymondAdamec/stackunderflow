@@ -6,6 +6,7 @@ use App\Entity\Answers;
 use App\Form\AnswersType;
 use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,12 +33,15 @@ class AnswersController extends AbstractController
         // $qq = $question->getId();
         // // dd($qq);
         $answer = new Answers();
-
+        $user = $this->getUser();
+        $now = new DateTime();
         $form = $this->createForm(AnswersType::class, $answer);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $answer->setFkIdQuestions($question);
+            $answer->setFkIdUser($user);
+            $answer->setCreatedAt($now);
             // dd($answer);
             $entityManager->persist($answer);
             $entityManager->flush();
