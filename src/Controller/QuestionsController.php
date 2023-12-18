@@ -23,11 +23,6 @@ class QuestionsController extends AbstractController
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
     public function index(QuestionsRepository $questionsRepository): Response
     {
-        $isBanned = $this->getUser()->getIsBanned();
-
-        if ($isBanned) {
-            return $this->render('banned/index.html.twig');
-        }
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
         ]);
@@ -140,9 +135,6 @@ class QuestionsController extends AbstractController
                 $entityManager->remove($value);
                 $entityManager->flush();
             }
-
-
-
 
             $entityManager->remove($question);
             $entityManager->flush();

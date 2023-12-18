@@ -3,7 +3,7 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>User_dahboard</h1>
 
     <table class="table">
         <thead>
@@ -18,6 +18,7 @@
                 <th>GitHubProfile</th>
                 <th>IsBanned</th>
                 <th>actions</th>
+                <th>Time of ban</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,15 @@
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+                    {% if user.isBanned %}
+                        <a href="{{ path('app_user_unban', {'id': user.id}) }}">unban</a>
+                    {% else %}
+                        <a href="{{ path('app_user_ban', {'id': user.id}) }}">ban</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_user_ban_48_hours', {'id': user.id}) }}">{{ user.TimedBan ? user.TimedBan.format('Y-m-d H:i:s') : 'Not Banned' }}</a>
                 </td>
             </tr>
         {% else %}
@@ -42,6 +52,7 @@
                 <td colspan="10">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 

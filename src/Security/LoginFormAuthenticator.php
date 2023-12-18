@@ -52,6 +52,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        if ($this->security->getUser()->getIsBanned()) {
+            return new RedirectResponse('/logout');
+        }
         // For example:
         if ($this->security->isGranted("ROLE_ADMIN")) {
 
