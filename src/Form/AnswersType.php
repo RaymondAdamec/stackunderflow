@@ -16,12 +16,12 @@ class AnswersType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('created_at')
+            // ->add('created_at')
             ->add('text')
-            ->add('fk_id_user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('fk_id_user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
             //             ->add('fk_id_questions', EntityType::class, [
             //                 'class' => Questions::class,
             // 'choice_label' => 'id',
