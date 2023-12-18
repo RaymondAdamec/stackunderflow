@@ -18,7 +18,9 @@
 					<th>GitHubProfile</th>
 					<th>Picture</th>
 					<th>IsBanned</th>
-					<th>actions</th>
+					<th>Actions</th>
+					<th>Time of ban</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +36,14 @@
 						<td>
 							<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
 							<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+							{% if user.isBanned %}
+								<a href="{{ path('app_user_unban', {'id': user.id}) }}">unban</a>
+							{% else %}
+								<a href="{{ path('app_user_ban', {'id': user.id}) }}">ban</a>
+							{% endif %}
+						</td>
+						<td>
+							<a href="{{ path('app_user_ban_48_hours', {'id': user.id}) }}">{{ user.TimedBan ? user.TimedBan.format('Y-m-d H:i:s') : 'Not Banned' }}</a>
 						</td>
 					</tr>
 				{% else %}
@@ -43,7 +53,6 @@
 				{% endfor %}
 			</tbody>
 		</table>
-
 		<a href="{{ path('app_user_new') }}">Create new</a>
 	</div>
 {% endblock %}
