@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index
+{% endblock %}
+
+{% block body %}
+	<br>
+
+	<div class="container">
+
+		<table class="table table-info table-striped-columns">
+			<div class="header text-center">Q&A DASHBOARD</div>
+			<thead>
+				<tr>
+					<th scope="col">Question ID</th>
+					<th scope="col">Title</th>
+					<th scope="col">Tags</th>
+					<th scope="col">Created</th>
+
+				</tr>
+			</thead>
+			{% for question in questions %}
+
+				<tbody>
+					<tr>
+						{# <th scope="row">1</th> #}
+						<td>{{ question.id }}</td>
+						<td>{{ question.title }}</td>
+						<td>
+							{% for tag in tagQuestionArray %}
+								{% if tag.questionid == question.id %}
+									{{tag.tagTitle}}
+
+								{% endif %}
+
+								{% else %}No tags added by User
+							{% endfor %}
+						</td>
+						<td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					</tr>
+
+				</tbody>
+			{% endfor %}
+		</table>
+
+	</div>
+{% endblock %}
