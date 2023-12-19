@@ -11,24 +11,20 @@ use App\Repository\QuestionsRepository;
 use App\Repository\RatingsAnswersRepository;
 use App\Repository\RatingsQuestionsRepository;
 use App\Repository\UserRepository;
-use App\Repository\TagsRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length;
 use App\Service\FileUploader;
 
 #[Route('/questions')]
 class QuestionsController extends AbstractController
 {
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
-    public function index(QuestionsRepository $questionsRepository,): Response
+    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
     {
-
         // check if user is banned
         $isBanned = $this->getUser()->getIsBanned();
 
@@ -44,14 +40,28 @@ class QuestionsController extends AbstractController
             }
         }
 
+        // Calculate the sum of votes for each question
+        $questionSumArray = [];
+        foreach ($questionsRepository->findAll() as $question) {
+            $votes = $ratingsQuestionsRepository->findBy(["fk_id_question" => $question]);
+            $sum = 0;
+            foreach ($votes as $vote) {
+                $sum += $vote->getVotes();
+            }
+            $questionSumArray[$question->getId()] = $sum;
+        }
+
         if ($isBanned) {
             return $this->render('banned/index.html.twig');
         }
+
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
-            'tagQuestionArray' => $tagQuestionArray
+            'tagQuestionArray' => $tagQuestionArray,
+            'questionSumArray' => $questionSumArray,
         ]);
     }
+
 
     #[Route('/new', name: 'app_questions_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response

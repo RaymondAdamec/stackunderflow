@@ -15,9 +15,8 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstName')
             ->add('lastName')
-            ->add('picture')
-            ->add('gitHubProfile')
-            ->add('isBanned');
+            ->add('picture', null, ['required' => false])
+            ->add('gitHubProfile');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

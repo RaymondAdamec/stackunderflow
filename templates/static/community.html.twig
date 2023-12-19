@@ -2,7 +2,68 @@
 
 {% block title %}Community Controller!{% endblock %}
 
-{% block body %}
-<p>hello world</p>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/about.css')}}" type="text/css"/>
+{% endblock %}
 
+{% block body %}
+    <div class="container-fluid">
+        <img src="{{asset('picture_directory/HomeBaner.jpg')}}" class="heroBanner">
+        <h1 class="hero-header text-center">
+            <em>Our Community</em>
+        </h1>
+    </div>
+
+    <div class="container d-flex justify-content-between">
+        <div class="card text-center m-2 " style="width: 10rem;">
+            <div class="card-body">
+                <h5 class="card-title"><img src="/picture_directory/members.png" alt=""></h5>
+                <h5 class="card-text">Members </h5>
+                <p> 250.000</p>
+            </div>
+        </div>
+        <div class="card text-center m-2" style="width: 10rem;">
+            <div class="card-body">
+                <h5 class="card-title"><img src="/picture_directory/question-icon.png" alt=""></h5>
+                <h5 class="card-text">Questions </h5>
+                <p> 1.340.043</p>
+            </div>
+        </div>
+        <div class="card text-center m-2 " style="width: 10rem;">
+            <div class="card-body">
+                <h5 class="card-title"><img src="/picture_directory/answer-icon.png" alt=""></h5>
+                <h5 class="card-text">Answers </h5>
+                <p>2.567.324</p>
+            </div>
+        </div>
+        <div class="card text-center m-2 " style="width: 10rem;">
+            <div class="card-body">
+                <h5 class="card-title"><img src="/picture_directory/votes-icon.png" alt=""></h5>
+                <h5 class="card-text">Votes </h5>
+                <p>32.189</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="d-flex justify-content-center my-5 h1">Forum Rules and Guidelines</h1>
+
+        <ol>
+            <li><strong>Be Respectful:</strong> Treat fellow members with kindness and respect. No offensive language, personal attacks, or harassment will be tolerated.</li>
+            <li><strong>Stay on Topic:</strong> Keep discussions relevant to the forum's purpose. Off-topic posts may be moved or removed.</li>
+            <li><strong>No Spam or Self-Promotion:</strong> Avoid excessive self-promotion or spamming. If you share links, make sure they contribute to the conversation.</li>
+            <li><strong>Keep it Civil:</strong> Disagreements may happen, but keep discussions civil and constructive. Avoid flame wars, trolling, or any form of disruptive behavior.</li>
+            <li><strong>Privacy Matters:</strong> Respect the privacy of others. Do not share personal information without consent.</li>
+            <li><strong>No Illegal Content:</strong> Do not post or link to illegal content. This includes pirated software, malicious software, and any content that violates copyright or other laws.</li>
+            <li><strong>Quality Over Quantity:</strong> Prioritize quality in your contributions. Well-thought-out posts are encouraged over one-liners.</li>
+            <li><strong>Reporting Issues:</strong> If you encounter a violation of these rules, report it to the moderators. Do not attempt to moderate the forum yourself.</li>
+            <li><strong>Signature Guidelines:</strong> If the forum allows signatures, keep them modest and in line with community standards.</li>
+            <li><strong>Follow Forum-Specific Rules:</strong> Some sub-forums may have additional rules. Be sure to check for any sticky threads or announcements.</li>
+        </ol>
+
+        <p class="d-flex justify-content-center my-5">Failure to comply with these rules may result in warnings, post removal, or account suspension. Let's work together to maintain a positive and engaging community!</p>
+
+        <p class="d-flex justify-content-center my-5">Thank you for being a valued member of StackUnderFlow. </p>
+        <p class="d-flex justify-content-center my-5">Happy posting!</p>
+    </div>
 {% endblock %}

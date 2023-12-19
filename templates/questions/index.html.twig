@@ -5,32 +5,6 @@
 
 {% block body %}
 
-
-	{# <table class="table">
-																															{% for question in questions %}
-																																<tr>
-																																	<td>{{ question.id }}</td>
-																																	<td>{{ question.title }}</td>
-																																	<td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-																																	<td>{{ question.text }}</td>
-																																	<td>{{ question.image }}</td>
-																																	<td>{{ question.isChecked ? 'Yes' : 'No' }}</td>
-																																	<td>
-																																		<a href="{{ path('app_questions_show', {'id': question.id}) }}">show</a>
-																																		<a href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
-																																	</td>
-																																</tr>
-																															{% else %}
-																																<tr>
-																																	<td colspan="7">no records found</td>
-																																</tr>
-																															{% endfor %}
-																														</tbody>
-																													</table>
-																											
-																													<a href="{{ path('app_questions_new') }}">Create new</a>
-																												 #}
-
 	<div class="container">
 		<h1 class="d-flex justify-content-center m-5">All Questions</h1>
 		<div class="m-3 d-flex justify-content-center">
@@ -84,54 +58,59 @@
 		</div>
 	</div>
 
-	<div class="container">
-		{% for question in questions %}
-			<div class="card my-3">
-				<div class="row">
-					<div class="col-1 d-flex flex-column align-items-center justify-content-center">
-						<p><img src="/assets/thumbs-up-35.png" href="" alt=""></p>
-						<p></p>
-						<p><img src="/assets/thumbs-down-35.png" href="" alt=""></p>
-					</div>
-					<div class="col-11 border-start ps-0">
+	    <div class="container">
+        {% for question in questions %}
+            <div class="card my-3">
+                <div class="row">
+                    <div class="col-1 d-flex flex-column align-items-center justify-content-center">
+                        <p>
+                            <a href="/ratingsquestions/voteg/{{ question.id }}">
+                                <img src="/assets/thumbs-up-35.png" alt=""></a>
+                        </p>
+                        <p></p>
+                        <p>
+                            <a href="/ratingsquestions/voteb/{{ question.id }}">
+                                <img src="/assets/thumbs-down-35.png" alt=""></a>
+                        </p>
+                        <p>
+                            <strong>Rating: {{ questionSumArray[question.id] ?? 0 }}</strong>
+                        </p>
+                    </div>
+                    <div class="col-11 border-start ps-0">
+                        <div class="card-header">
+                            <a href="{{ path('app_questions_show', {'id': question.id}) }}">{{ question.title }}</a>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>{{ question.text }}</p>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-6 footer-card justify-content-start">
+                                        Tags:
+                                        {% for tag in tagQuestionArray %}
+                                            {% if tag.questionid == question.id %}
+                                                {{tag.tagTitle}}
+                                            {% endif %}
+                                        {% else %}No tags added by User
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-6 footer-card d-flex justify-content-end">{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
 
-
-						<div class="card-header">
-							<a href="{{ path('app_questions_show', {'id': question.id}) }}">{{ question.title }}</a>
-						</div>
-						<div class="card-body">
-							<blockquote class="blockquote mb-0">
-								<p>{{ question.text }}</p>
-								<hr>
-								<div class="row">
-									<div class="col-6 footer-card justify-content-start">
-										Tags:
-										{% for tag in tagQuestionArray %}
-											{% if tag.questionid == question.id %}
-												{{tag.tagTitle}}
-
-											{% endif %}
-
-											{% else %}No tags added by User
-										{% endfor %}
-									</div>
-									<div class="col-6 footer-card d-flex justify-content-end">{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-								</div>
-							</blockquote>
-						</div>
-					</div>
-				</div>
-			</div>
-		{% else %}
-			<tr>
-				<td colspan="7">no records found</td>
-			</tr>
-
-		{% endfor %}
-	</div>
-	{% if is_granted('ROLE_ADMIN') %}
-		<div>
-			<a href="{{ path('delete_inactive_questions') }}" class="btn btn-danger">Delete Inactive Questions</a>
-		</div>
-	{% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{ path('delete_inactive_questions') }}" class="btn btn-danger">Delete Inactive Questions</a>
+        </div>
+    {% endif %}
 {% endblock %}
