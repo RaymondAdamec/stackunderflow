@@ -4,23 +4,24 @@
 {% endblock %}
 
 {% block body %}
+	<br>
 	<div class="container">
 		<h1>Welcome Admin</h1>
 		<h2 class="text-center">User dashboard</h2>
 
-		<table class="table">
+		<table class="table table-success table-hover">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Email</th>
-					<th>FirstName</th>
+					<th>Name</th>
 					<th>LastName</th>
-					<th>GitHubProfile</th>
+					<th>GitHub</th>
 					<th>Picture</th>
-					<th>IsBanned</th>
+					<th>48hr.banned</th>
+					<th>Perm.Banned</th>
 					<th>Actions</th>
-					<th>Time of ban</th>
-
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,27 +33,35 @@
 						<td>{{ user.lastName }}</td>
 						<td>{{ user.gitHubProfile }}</td>
 						<td>{{ user.picture }}</td>
-						<td>{{ user.isBanned ? 'Yes' : 'No' }}</td>
-						<td>
-							<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-							<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+						<td class="text-end">
+							<a href="{{ path('app_user_ban_48_hours', {'id': user.id}) }}">{{ user.TimedBan ? user.TimedBan.format('Y-m-d H:i:s') : '48hr Ban' }}</a>
+						</td>
+						<td class="text-center">{{ user.isBanned ? 'Yes' : 'No' }}
 							{% if user.isBanned %}
-								<a href="{{ path('app_user_unban', {'id': user.id}) }}">unban</a>
+								<a class="btn btn-outline-primary" href="{{ path('app_user_unban', {'id': user.id}) }}">unban</a>
 							{% else %}
-								<a href="{{ path('app_user_ban', {'id': user.id}) }}">ban</a>
+								<a class="btn btn-outline-danger" href="{{ path('app_user_ban', {'id': user.id}) }}">ban</a>
 							{% endif %}
 						</td>
-						<td>
-							<a href="{{ path('app_user_ban_48_hours', {'id': user.id}) }}">{{ user.TimedBan ? user.TimedBan.format('Y-m-d H:i:s') : 'Not Banned' }}</a>
+
+						<td class="text-end d-flex">
+							<a class="btn btn-outline-warning" href="{{ path('app_user_show', {'id': user.id}) }}">Details</a>
+							<a class="btn btn-outline-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit</a>
+						</td>
+						<td class="text-end">
+							<form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item/entry?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+								<button class="btn btn-outline-danger">Delete</button>
+							</form>
 						</td>
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="10">no records found</td>
+						<td colspan="10">No records found</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-		<a href="{{ path('app_user_new') }}">Create new</a>
+		<a class="btn btn-outline-success" href="{{ path('app_user_new') }}">Create a new user</a>
 	</div>
 {% endblock %}

@@ -3,37 +3,39 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Answers index</h1>
+	<div class="container">
+		<h1>Answers index</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Title</th>
-				<th>Created_at</th>
-				<th>Text</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for answer in answers %}
+		<table class="table">
+			<thead>
 				<tr>
-					<td>{{ answer.id }}</td>
-					<td>{{ answer.title }}</td>
-					<td>{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ answer.text }}</td>
-					<td>
-						<a href="{{ path('app_answers_show', {'id': answer.id}) }}">show</a>
-						<a href="{{ path('app_answers_edit', {'id': answer.id}) }}">edit</a>
-					</td>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Created_at</th>
+					<th>Text</th>
+					<th>actions</th>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="5">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for answer in answers %}
+					<tr>
+						<td>{{ answer.id }}</td>
+						<td>{{ answer.title }}</td>
+						<td>{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ answer.text }}</td>
+						<td>
+							<a href="{{ path('app_answers_show', {'id': answer.id}) }}">Details</a>
+							<a href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-	<a href="{{ path('app_answers_new') }}">Create new</a>
+		<a href="{{ path('app_answers_new') }}">Create new</a>
+	</div>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block title %}Answers
 {% endblock %}
 {% block body %}
-
+	<br>
 	<div class="container">
-		<h1>Answers</h1>
+		<h1 class="text-center">Answer details</h1>
 
 		<table class="table">
 			<tbody>
@@ -27,13 +27,19 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="text-center">
+			<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to questions</a>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
+				{{ include('answers/_delete_form.html.twig') }}
 
-		<a href="{{ path('app_questions_index') }}">Back</a>
-		{% if is_granted('ROLE_ADMIN') %}
-			<a href="{{ path('app_answers_edit', {'id': answer.id}) }}">edit</a>
-
-			{{ include('answers/_delete_form.html.twig') }}
+			</div>
 		{% endif %}
-
+		<div class="text-center d-flex mb-4">
+			{% if test2Var %}
+				<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
+				{{ include('answers/_delete_form.html.twig') }}
+			{% endif %}
+		</div>
 	</div>
 {% endblock %}

@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block body %}
+	<br>
 	<div class="container">
-		<h1 class="d-flex justify-content-center">Questions</h1>
+		<h1 class="d-flex justify-content-center">Question details</h1>
 
 		{# Question Detail #}
 		<div class="card my-3 bg-primary">
@@ -56,7 +57,13 @@
 		</div>
 		<div class="text-end">
 			<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to Questions</a>
-			<a class="btn btn-warning" href="{{ path('app_questions_edit', {'id': question.id}) }}">edit</a>
+			{% if is_granted('ROLE_ADMIN') %}
+
+				<a class="btn btn-warning" href="{{ path('app_questions_edit', {'id': question.id}) }}">Edit</a>
+			{% endif %}
+			{% if testVar %}
+				<a class="btn btn-warning" href="{{ path('app_questions_edit', {'id': question.id}) }}">Edit</a>
+			{% endif %}
 		</div>
 		<form method="post" action="{{ path('app_questions_delete', {'id': question.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
 			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ question.id) }}">
@@ -68,7 +75,7 @@
 
 		</form>
 		{# Answers #}
-		<h1 class="d-flex justify-content-center">Answers
+		<h1 class="d-flex justify-content-center">Your answers
 		</h1>
 		{% for answer in answers %}
 			<div class="card my-3 bg-warning">

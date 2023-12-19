@@ -6,6 +6,7 @@ use App\Entity\Answers;
 use App\Form\AnswersType;
 use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
@@ -53,9 +54,8 @@ class AnswersController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'app_answers_show', methods: ['GET'])]
-    public function show(Answers $answer): Response
+    public function show(UserRepository $user, Answers $answer): Response
     {
-
         $user = $this->getUser();
         $test2Var = false;
         if ($user == $answer->getFkIdUser()) {
@@ -65,11 +65,9 @@ class AnswersController extends AbstractController
 
         return $this->render('answers/show.html.twig', [
             'answer' => $answer,
-            'test2var' => $test2Var,
+            'test2Var' => $test2Var,
         ]);
     }
-
-
 
 
 
@@ -82,6 +80,7 @@ class AnswersController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
         }
+
         return $this->render('answers/edit.html.twig', [
             'answer' => $answer,
             'form' => $form,

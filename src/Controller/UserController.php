@@ -36,7 +36,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('user_admin/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -45,7 +45,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
+        return $this->render('user_admin/show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -62,7 +62,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user_admin/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
