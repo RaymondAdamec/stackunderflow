@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\AnswersRepository;
+use App\Repository\QuestionsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,19 +38,45 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('user_admin/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
 
+    #[Route('/q_dashboard', name: 'app_user_dashquestion', methods: ['GET'])]
+    public function dashquestion(AnswersRepository $answersRepository, QuestionsRepository $questionsRepository,): Response
+    {
+        // get an array with every question (Id) with the corresponding tag title 
+        $tagQuestionArray = [];
+        $allQuestions = $questionsRepository->findAll();
+        foreach ($allQuestions as $question) {
+            $questionsTags = $questionsRepository->find($question->getId())->getTags();
+            for ($i = 0; $i < count($questionsTags); $i++) {
+                $questionId = $question->getId();
+                $tagTitle = $questionsRepository->find($question->getId())->getTags()[$i]->getTitle();
+                $tagQuestionArray[] = ["questionid" => $questionId, 'tagTitle' => $tagTitle];
+            }
+        }
+
+        return $this->render('user_admin/q_dashboard.html.twig', [
+            'questions' => $questionsRepository->findAll(),
+            'tagQuestionArray' => $tagQuestionArray,
+        ]);
+    }
+
+
+
+
+
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
+        return $this->render('user_admin/show.html.twig', [
             'user' => $user,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -62,7 +90,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user_admin/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

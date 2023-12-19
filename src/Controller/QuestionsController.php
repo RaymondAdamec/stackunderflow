@@ -93,6 +93,18 @@ class QuestionsController extends AbstractController
     public function show($id, UserRepository $user, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
     {
 
+        //need to get Tags of specific question into an array:
+        $tags = [];
+        $tagFilter = $questionsRepository->find($id)->getTags();
+        for ($i = 0; $i < count($tagFilter); $i++) {
+
+            $tags[] = $questionsRepository->find($id)->getTags()[$i]->getTitle();
+        }
+
+
+
+
+
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
 
         // needed for displaying the total votes in questions
@@ -135,7 +147,8 @@ class QuestionsController extends AbstractController
             'answers' => $answers,
             'sum' => $sumQuestionVotes,
             'answersum' => $sumAnswersVotesArray,
-            'testVar' => $testVar
+            'testVar' => $testVar,
+            'tags' => $tags
         ]);
     }
 
