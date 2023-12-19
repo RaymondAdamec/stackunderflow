@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-top: 100px;
+}
+
+.col-3 img {
+  width: 250px !important;
+  height: 250px !important;
+  border-radius: 20px;
+}
+
+.card-1 {
+  height: 178px;
+}
+
+.card-body {
+  background-color: #84abff;
+  border: none;
+  border-radius: 18px;
+}
+
+.col-9 p {
+  font-size: 22px;
+}
+
+.card {
+  border: none;
+  box-shadow: none;
+  border-radius: 20px;
+}
+
+#file-upload {
+  display: none;
+}
