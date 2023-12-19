@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class QuestionsType extends AbstractType
 {
@@ -18,7 +20,25 @@ class QuestionsType extends AbstractType
             ->add('title')
             // ->add('created_at')
             ->add('text')
-            ->add('image')
+
+            ->add('image', FileType::class, [
+                // 'attr' => ['class' => 'form-control'], // do we need this line?! just styling
+                'label' => 'Question image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image format',
+                    ])
+                ],
+            ])
+
             ->add('isChecked')
             ->add('tags', EntityType::class, [
                 'class' => Tags::class,

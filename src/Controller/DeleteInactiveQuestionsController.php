@@ -24,14 +24,3 @@ class DeleteInactiveQuestionsController extends AbstractController
         return $this->redirectToRoute('app_home'); // Replace 'home' with the route you want to redirect to
     }
 }
-
-
-// {
-//     #[Route('/delete/inactive/questions', name: 'app_delete_inactive_questions')]
-//     public function index(): Response
-//     {
-//         return $this->render('delete_inactive_questions/index.html.twig', [
-//             'controller_name' => 'DeleteInactiveQuestionsController',
-//         ]);
-//     }
-// }

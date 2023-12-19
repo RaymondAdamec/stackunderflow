@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
+use App\Service\FileUploader;
 
 #[Route('/questions')]
 class QuestionsController extends AbstractController
@@ -43,8 +44,6 @@ class QuestionsController extends AbstractController
             }
         }
 
-
-
         if ($isBanned) {
             return $this->render('banned/index.html.twig');
         }
@@ -55,7 +54,7 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_questions_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
         $now = new DateTime();
@@ -67,6 +66,13 @@ class QuestionsController extends AbstractController
         $question->setFkIdUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $imageName = $fileUploader->upload($image);
+            } else {
+                $imageName = "default.jpg";
+            }
+            $question->setImage($imageName);
             foreach ($form->get("tags")->getData() as $tag) {
                 $question->addTag($tag);
             }
@@ -88,7 +94,6 @@ class QuestionsController extends AbstractController
     {
 
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
-
 
         // needed for displaying the total votes in questions
         $filter = $questionsRepository->find($id);
@@ -125,9 +130,6 @@ class QuestionsController extends AbstractController
             $testVar = true;
         }
 
-
-
-
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
@@ -138,12 +140,20 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_questions_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Questions $question, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Questions $question, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(QuestionsType::class, $question);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                if ($question->getImage() != "default.jpg") {
+                    unlink($this->getParameter("image_directory") . "/" . $question->getImage());
+                }
+                $imageName = $fileUploader->upload($image);
+                $question->setImage($imageName);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);
@@ -160,6 +170,9 @@ class QuestionsController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
 
+            if ($question->getImage() != "default.jpg") {
+                unlink($this->getParameter("image_directory") . "/" . $question->getImage());
+            }
             $answers = $entityManager->getRepository(Answers::class)->findBy(array('fk_id_questions' => $question));
             foreach ($answers as $value) {
 
