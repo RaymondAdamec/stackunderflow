@@ -43,7 +43,14 @@
 							<hr>
 							<div class="row">
 								<div class="col-6 footer-card justify-content-start">
-									<strong># Tags:
+									<strong>Tags:
+										{% for tag in tags %}
+											
+												{{tag}} 
+
+
+							
+										{% endfor %}
 									</strong>
 								</div>
 

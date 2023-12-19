@@ -4,6 +4,59 @@
 {% endblock %}
 
 {% block body %}
+
+
+<div class="container border border-fluid">
+	<h1>Total number of asked Questions:</h1>
+		<p>{{questionCount}}</p>
+	</div>
+
+	<div class="container border border-fluid">
+		<h1>Total number of Answers:</h1>
+			<p>{{answerCount}}</p>
+		</div>
+
+		<div class="container border border-fluid">
+			<h1>Total number of Users:</h1>
+				<p>{{userCount}}</p>
+			</div>
+
+<div class="container border border-fluid">
+<h1>User who got the most Votes for all his/her questions</h1>
+	<p>User ID: {{bestUser.id}}</p>
+	<p>User email: {{bestUser.email}}</p>
+	<p>Total voting on best question: {{bestUser.totalVotes}}</p>
+	
+</div>
+
+
+<div class="container border border-fluid">
+<h1>Best rated Question</h1>
+	<p>Title of best question: {{bestUserQuestion.title}}</p>
+	<p>Total voting on best question: {{bestUserQuestion.totalVotes}}</p>
+	<br>
+	<p><b>Question-Author Details:</b></p>
+	<p>User ID: {{bestUserQuestion.id}}</p>
+	<p>User Email: {{bestUserQuestion.email}}</p>
+</div>
+
+<div class="container border border-fluid">
+	<h1>Best rated Answer</h1>
+		<p>Title of best question: {{bestUserAnswer.title}}</p>
+		<p>Total voting on best question: {{bestUserAnswer.totalVotes}}</p>
+		<br>
+		<p><b>Question-Author Details:</b></p>
+		<p>User ID: {{bestUserAnswer.id}}</p>
+		<p>User Email: {{bestUserAnswer.email}}</p>
+	</div>
+
+
+
+
+
+
+
+
 	<div class="container">
 		<div class="container6">
 			<div class="item6 text-center">
