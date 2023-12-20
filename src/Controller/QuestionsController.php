@@ -26,7 +26,7 @@ use App\Service\FileUploader;
 class QuestionsController extends AbstractController
 {
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
-    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository UserRepository $userRepository): Response
+    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository, UserRepository $userRepository): Response
     {
         // check if user is banned
         $isBanned = $this->getUser()->getIsBanned();
@@ -60,7 +60,7 @@ class QuestionsController extends AbstractController
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
             'tagQuestionArray' => $tagQuestionArray,
-            'questionSumArray' => $questionSumArray,,
+            'questionSumArray' => $questionSumArray,
             'users' => $userRepository->findAll(),
         ]);
     }
