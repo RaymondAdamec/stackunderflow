@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Answers;
 use App\Entity\Questions;
 use App\Entity\RatingsQuestions;
+use App\Entity\User;
 use App\Form\QuestionsType;
 use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
@@ -12,7 +13,9 @@ use App\Repository\RatingsAnswersRepository;
 use App\Repository\RatingsQuestionsRepository;
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +26,7 @@ use App\Service\FileUploader;
 class QuestionsController extends AbstractController
 {
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
-    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
+    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository, UserRepository $userRepository): Response
     {
         // check if user is banned
         $isBanned = $this->getUser()->getIsBanned();
@@ -39,8 +42,7 @@ class QuestionsController extends AbstractController
                 $tagQuestionArray[] = ["questionid" => $questionId, 'tagTitle' => $tagTitle];
             }
         }
-
-        // Calculate the sum of votes for each question
+        $user = $questionsRepository->find($question->getFkIdUser());        // Calculate the sum of votes for each question
         $questionSumArray = [];
         foreach ($questionsRepository->findAll() as $question) {
             $votes = $ratingsQuestionsRepository->findBy(["fk_id_question" => $question]);
@@ -59,6 +61,7 @@ class QuestionsController extends AbstractController
             'questions' => $questionsRepository->findAll(),
             'tagQuestionArray' => $tagQuestionArray,
             'questionSumArray' => $questionSumArray,
+            'users' => $userRepository->findAll(),
         ]);
     }
 
@@ -100,9 +103,8 @@ class QuestionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_questions_show', methods: ['GET'])]
-    public function show($id, UserRepository $user, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository): Response
+    public function show($id, UserRepository $userRepo, Questions $question, EntityManagerInterface $em, RatingsAnswersRepository $ratingsAnswersRepository, AnswersRepository $answersRepository, QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository,  EntityManagerInterface $entityManager): Response
     {
-
         //need to get Tags of specific question into an array:
         $tags = [];
         $tagFilter = $questionsRepository->find($id)->getTags();
@@ -110,9 +112,6 @@ class QuestionsController extends AbstractController
 
             $tags[] = $questionsRepository->find($id)->getTags()[$i]->getTitle();
         }
-
-
-
 
 
         $answers = $em->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
@@ -152,13 +151,29 @@ class QuestionsController extends AbstractController
             $testVar = true;
         }
 
+        ($user = $userRepo->find($question->getFkIdUser()));
+        // $user = $user
+        //     ->find($question->getFkIdUser());
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id ' . $question->getFkIdUser()
+            );
+        }
+
+        ($user->getFirstName());
+
+
+
         return $this->render('questions/show.html.twig', [
             'question' => $question,
             'answers' => $answers,
             'sum' => $sumQuestionVotes,
             'answersum' => $sumAnswersVotesArray,
             'testVar' => $testVar,
-            'tags' => $tags
+            'tags' => $tags,
+            "user" => $user
+
         ]);
     }
 
