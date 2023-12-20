@@ -101,6 +101,8 @@ class UserController extends AbstractController
                 $pictureName = $fileUploader2->upload($picture);
                 $user->setPicture($pictureName);
             }
+
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

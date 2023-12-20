@@ -66,16 +66,6 @@ class UserAccessController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        return $this->render('user_access/user_profile.html.twig', [
-            'user' => $user,
-            'form' => $form,
-            'totalVoting' => $totalVoting,
-            'totalQuestions' => $totalQuestions,
-            'totalAnswers' => $totalAnswers
-
-        ]);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setFirstName($form->get('firstName')->getData());
@@ -101,10 +91,12 @@ class UserAccessController extends AbstractController
         }
 
 
-
         return $this->render('user_access/user_profile.html.twig', [
             'user' => $user,
-            'form' => $form
+            'form' => $form,
+            'totalVoting' => $totalVoting,
+            'totalQuestions' => $totalQuestions,
+            'totalAnswers' => $totalAnswers
 
         ]);
     }
