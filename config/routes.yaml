@@ -7,3 +7,7 @@ controllers:
 delete_inactive_questions:
     path: '/delete-inactive-questions'
     controller: 'App\Controller\DeleteInactiveQuestionsController::deleteInactiveQuestions'
+
+export_route:
+    path: '/export'
+    controller: 'App\Controller\StaticController::exportToPdf'

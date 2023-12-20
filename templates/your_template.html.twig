@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Export</title>
+</head>
+<body>
+    <div class="container border border-fluid">
+        <h1>Total number of asked Questions:</h1>
+            <p>{{data.questionCount}}</p>
+        </div>
+    
+        <div class="container border border-fluid">
+            <h1>Total number of Answers:</h1>
+                <p>{{data.answerCount}}</p>
+            </div>
+    
+            <div class="container border border-fluid">
+                <h1>Total number of Users:</h1>
+                    <p>{{data.userCount}}</p>
+                </div>
+    
+     <div class="container border border-fluid">
+    <h1>User who got the most Votes for all his/her questions</h1>
+        <p>User ID: {{data.bestUser.id}}</p>
+        <p>User email: {{data.bestUser.email}}</p>
+        <p>Total voting on best question: {{data.bestUser.totalVotes}}</p>
+        
+    </div>
+    
+    
+    <div class="container border border-fluid">
+    <h1>Best rated Question</h1>
+        <p>Title of best question: {{data.bestUserQuestion.title}}</p>
+        <p>Total voting on best question: {{data.bestUserQuestion.totalVotes}}</p>
+        <br>
+        <p><b>Question-Author Details:</b></p>
+        <p>User ID: {{data.bestUserQuestion.id}}</p>
+        <p>User Email: {{data.bestUserQuestion.email}}</p>
+    </div>
+    
+    <div class="container border border-fluid">
+        <h1>Best rated Answer</h1>
+            <p>Title of best question: {{data.bestUserAnswer.title}}</p>
+            <p>Total voting on best question: {{data.bestUserAnswer.totalVotes}}</p>
+            <br>
+            <p><b>Question-Author Details:</b></p>
+            <p>User ID: {{data.bestUserAnswer.id}}</p>
+            <p>User Email: {{data.bestUserAnswer.email}}</p>
+        </div>
+</body>
+</html> #}
