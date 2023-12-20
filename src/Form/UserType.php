@@ -19,7 +19,8 @@ class UserType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('picture', FileType::class, [
-                'label' => 'Avatar picture',
+                // 'attr' => ['class' => 'form-control'], // do we need this line?! just styling
+                'label' => 'Avatar images',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -30,12 +31,11 @@ class UserType extends AbstractType
                             'image/jpg',
                             'image/jpeg'
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Please upload a valid image format',
                     ])
                 ],
             ])
             ->add('gitHubProfile');
-        // ->add('isBanned');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

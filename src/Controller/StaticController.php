@@ -34,7 +34,7 @@ class StaticController extends AbstractController
     }
 
 
-    #[Route('/inactiveuser', name: 'app_about')]
+    #[Route('/inactiveuser', name: 'app_inactiveuser')]
     public function inactiveUser(UserRepository $userRepository): Response
     {        //find all inactive users:
         $inactiveUser = $userRepository->findInactiveUsers();

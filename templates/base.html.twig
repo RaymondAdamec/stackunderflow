@@ -27,6 +27,7 @@
 			<h1>StackUnderFlow</h1>
 			<a href="{{ path('app_home') }}">Home</a>
 			<a href="{{ path('app_about') }}">About</a>
+			<a href="{{ path('app_questions_index') }}">Questions</a>
 			<a href="{{ path('app_community') }}">Community</a>
 			<div class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="{{ path('app_questions_index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,7 +62,7 @@
 							My account
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="/user_questions/user">My profile</a>
+							<a class="dropdown-item" href="{{ path('app_user') }}">My profile</a>
 							<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
 						</div>
 					</div>
