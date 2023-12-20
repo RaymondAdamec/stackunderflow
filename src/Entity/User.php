@@ -179,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->gitHubProfile;
     }
 
-    public function setGitHubProfile(string $gitHubProfile): static
+    public function setGitHubProfile(?string $gitHubProfile): static
     {
         $this->gitHubProfile = $gitHubProfile;
 
