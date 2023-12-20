@@ -54,7 +54,7 @@ class AnswersController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'app_answers_show', methods: ['GET'])]
-    public function show(UserRepository $user, Answers $answer): Response
+    public function show(UserRepository $user, Answers $answer, UserRepository $userRepo): Response
     {
         $user = $this->getUser();
         $test2Var = false;
@@ -63,9 +63,20 @@ class AnswersController extends AbstractController
         }
 
 
+        $user = $userRepo->find($answer->getFkIdUser());
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id ' . $answer->getFkIdUser()
+            );
+        }
+
+        ($user->getFirstName());
+
         return $this->render('answers/show.html.twig', [
             'answer' => $answer,
             'test2Var' => $test2Var,
+            'user' => $user,
         ]);
     }
 

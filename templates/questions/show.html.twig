@@ -13,21 +13,21 @@
 		{# Question Detail #}
 		<div class="card my-3 bg-primary">
 			<img src="{{ asset('question_images/'~ question.image) }}" class="card-img-top" alt="{{ question.title }}">
-				<div class="row">
-					<div class="col-1 d-flex flex-column align-items-center justify-content-center">
-						<p>
-							<a href="/ratingsquestions/voteg/{{ question.id }}">
-								<img src="/assets/thumbs-up-35.png" alt=""></a>
-						</p>
-						<p></p>
-						<p>
-							<a href="/ratingsquestions/voteb/{{ question.id }}">
-								<img src="/assets/thumbs-down-35.png" alt=""></a>
-						</p>
-						<p>
-							<strong>Rating:
-								{{ sum }}</strong>
-						</p>
+			<div class="row">
+				<div class="col-1 d-flex flex-column align-items-center justify-content-center">
+					<p>
+						<a href="/ratingsquestions/voteg/{{ question.id }}">
+							<img src="/assets/thumbs-up-35.png" alt=""></a>
+					</p>
+					<p></p>
+					<p>
+						<a href="/ratingsquestions/voteb/{{ question.id }}">
+							<img src="/assets/thumbs-down-35.png" alt=""></a>
+					</p>
+					<p>
+						<strong>Rating:
+							{{ sum }}</strong>
+					</p>
 
 
 				</div>
@@ -61,13 +61,13 @@
 									</strong>
 								</div>
 
-									<div class="col-6 footer-card d-flex justify-content-end">asked on:
-										{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-								</div>
-							</blockquote>
-						</div>
+								<div class="col-6 footer-card d-flex justify-content-end">asked on:
+									{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
+							</div>
+						</blockquote>
 					</div>
 				</div>
+			</div>
 		</div>
 		<div class="text-end">
 			<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to Questions</a>
@@ -120,23 +120,27 @@
 								<p>
 									<strong>From:
 									</strong>
-									{{ answer.text }}</p>
-								<hr>
-								<div class="row">
-									<p>
-										<strong>Your answer:
-										</strong>
-										{{ answer.text }}</p>
+									{{ answer.fkIdUser.firstName }}
+									{# {% if user.id == answer.fkIdUser.id %}
+																			{{ user.firstName }}
+																		{% endif %} #}
 									<hr>
 									<div class="row">
-										<div class="col-6 footer-card justify-content-start">
-											<strong># Tags:
+										<p>
+											<strong>Your answer:
 											</strong>
+											{{ answer.text }}</p>
+										<hr>
+										<div class="row">
+											<div class="col-6 footer-card justify-content-start">
+												<strong># Tags:
+												</strong>
+											</div>
+											<div class="col-6 footer-card d-flex justify-content-end">answered on:
+												{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
 										</div>
-										<div class="col-6 footer-card d-flex justify-content-end">answered on:
-											{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-									</div>
-								</blockquote>
+									</blockquote>
+								</p>
 							</div>
 						</div>
 					</div>

@@ -26,11 +26,10 @@ use App\Service\FileUploader;
 class QuestionsController extends AbstractController
 {
     #[Route('/', name: 'app_questions_index', methods: ['GET'])]
-    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository, UserRepository $userRepository): Response
+    public function index(QuestionsRepository $questionsRepository, RatingsQuestionsRepository $ratingsQuestionsRepository, UserRepository $userRepository, UserRepository $userRep): Response
     {
         // check if user is banned
         $isBanned = $this->getUser()->getIsBanned();
-
         // get an array with every question (Id) with the corresponding tag title 
         $tagQuestionArray = [];
         $allQuestions = $questionsRepository->findAll();
@@ -57,11 +56,23 @@ class QuestionsController extends AbstractController
             return $this->render('banned/index.html.twig');
         }
 
+        // $user = $userRep->find($answer->getFkIdUser());
+
+        // if (!$user) {
+        //     throw $this->createNotFoundException(
+        //         'No user found for id ' . $answer->getFkIdUser()
+        //     );
+        // }
+
+        // $user->getfirstName();
+
         return $this->render('questions/index.html.twig', [
             'questions' => $questionsRepository->findAll(),
             'tagQuestionArray' => $tagQuestionArray,
             'questionSumArray' => $questionSumArray,
             'users' => $userRepository->findAll(),
+
+            'user' => $user
         ]);
     }
 
