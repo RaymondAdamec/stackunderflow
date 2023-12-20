@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\FileUploader;
+use App\Service\FileUploader2;
 
 #[Route('/user_admin')]
 class UserController extends AbstractController
@@ -26,7 +26,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -35,9 +35,11 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                $pictureName = $fileUploader->upload($picture);
-                $user->setPicture($pictureName);
+                $pictureName = $fileUploader2->upload($picture);
+            } else {
+                $pictureName = "default.jpeg";
             }
+            $user->setPicture($pictureName);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -85,7 +87,7 @@ class UserController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -93,7 +95,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                $pictureName = $fileUploader->upload($picture);
+                if ($user->getPicture() != "default.jpeg") {
+                    unlink($this->getParameter("picture_directory") . "/" . $user->getPicture());
+                }
+                $pictureName = $fileUploader2->upload($picture);
                 $user->setPicture($pictureName);
             }
             $entityManager->flush();
@@ -142,6 +147,9 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            if ($user->getPicture() != "default.jpeg") {
+                unlink($this->getParameter("picture_directory") . "/" . $user->getPicture());
+            }
             $entityManager->remove($user);
             $entityManager->flush();
         }

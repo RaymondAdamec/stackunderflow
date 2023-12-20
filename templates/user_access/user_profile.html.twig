@@ -13,7 +13,8 @@
     <div class="row">
         <div class="col-3 d-flex justify-content-center p-0">
 			{% if user.picture is not null %}
-				<img src="{{ asset(user.picture) }}" alt="">
+                <img src="{{ asset('avatar_images/'~ user.picture) }}" class="card-img-top" alt="{{ user.firstname }}">
+				{# <img src="{{ asset(user.picture) }}" alt=""> #}
 			{% else %}
 				<img src="{{ asset('picture_directory/userAvatar.jpeg') }}" alt="Default Picture">
 			{% endif %}

@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\FileUploader2;
 
 #[Route('/user_questions')]
 class UserAccessController extends AbstractController
@@ -31,7 +32,7 @@ class UserAccessController extends AbstractController
     }
 
     #[Route('/user', name: 'app_user', methods: ['GET', "POST"])]
-    public function userProfile(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository): Response
+    public function userProfile(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository, FileUploader2 $fileUploader2): Response
     {
         $isBanned = $this->getUser()->getIsBanned();
 
@@ -48,7 +49,11 @@ class UserAccessController extends AbstractController
             $user->setFirstName($form->get('firstName')->getData());
             $user->setLastName($form->get('lastName')->getData());
             $user->setEmail($form->get('email')->getData());
-
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $pictureName = $fileUploader2->upload($picture);
+                $user->setPicture($pictureName);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();

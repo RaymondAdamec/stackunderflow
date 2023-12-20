@@ -79,10 +79,12 @@ class QuestionsController extends AbstractController
             $image = $form->get('image')->getData();
             if ($image) {
                 $imageName = $fileUploader->upload($image);
-            } else {
-                $imageName = "default.jpg";
+                $question->setImage($imageName);
             }
-            $question->setImage($imageName);
+            // else {
+            //     $imageName = "default.jpg";
+            // }
+            // $question->setImage($imageName);
             foreach ($form->get("tags")->getData() as $tag) {
                 $question->addTag($tag);
             }
@@ -167,11 +169,13 @@ class QuestionsController extends AbstractController
     {
         $form = $this->createForm(QuestionsType::class, $question);
         $form->handleRequest($request);
+        $imagePath = $this->getParameter("image_directory") . "/" . $question->getImage();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
-                if ($question->getImage() != "default.jpg") {
+                // if ($question->getImage() != "default.jpg") {
+                if ($question->getImage() !== null && $question->getImage() != "default.jpg" && file_exists($imagePath)) {
                     unlink($this->getParameter("image_directory") . "/" . $question->getImage());
                 }
                 $imageName = $fileUploader->upload($image);
@@ -192,11 +196,12 @@ class QuestionsController extends AbstractController
     public function delete(Request $request, Questions $question, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
+            $imagePath = $this->getParameter("image_directory") . "/" . $question->getImage();
 
-            if ($question->getImage() != "default.jpg") {
+            if ($question->getImage() !== null && $question->getImage() != "default.jpg" && file_exists($imagePath)) {
                 unlink($this->getParameter("image_directory") . "/" . $question->getImage());
             }
-            $answers = $entityManager->getRepository(Answers::class)->findBy(array('fk_id_questions' => $question));
+            $answers = $entityManager->getRepository(Answers::class)->findBy(['fk_id_questions' => $question]);
             foreach ($answers as $value) {
 
                 $entityManager->remove($value);
