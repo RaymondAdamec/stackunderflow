@@ -36,6 +36,13 @@
 					</div>
 					<div class="card-body">
 						<blockquote class="blockquote mb-0">
+							{% if user.id == question.fkIdUser.id %}
+								<p>
+									<strong>From:
+									</strong>
+									{{ user.firstName }}</p>
+							{% endif %}
+							<hr>
 							<p>
 								<strong>Your question:
 								</strong>
@@ -45,11 +52,10 @@
 								<div class="col-6 footer-card justify-content-start">
 									<strong>Tags:
 										{% for tag in tags %}
-											
-												{{tag}} 
+
+											{{tag}}
 
 
-							
 										{% endfor %}
 									</strong>
 								</div>
@@ -111,29 +117,34 @@
 						<div class="card-body">
 							<blockquote class="blockquote mb-0">
 								<p>
-									<strong>Your answer:
+									<strong>From:
 									</strong>
 									{{ answer.text }}</p>
 								<hr>
 								<div class="row">
-									<div class="col-6 footer-card justify-content-start">
-										<strong># Tags:
+									<p>
+										<strong>Your answer:
 										</strong>
+										{{ answer.text }}</p>
+									<hr>
+									<div class="row">
+										<div class="col-6 footer-card justify-content-start">
+											<strong># Tags:
+											</strong>
+										</div>
+										<div class="col-6 footer-card d-flex justify-content-end">answered on:
+											{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
 									</div>
-									<div class="col-6 footer-card d-flex justify-content-end">answered on:
-										{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-								</div>
-							</blockquote>
+								</blockquote>
+							</div>
 						</div>
 					</div>
 				</div>
+			{% endfor %}
+
+			{# Answer button #}
+			<div class="d-flex justify-content-center">
+				<a href="/answers/new/{{ question.id }}" class="btn btn-info">Post Answer</a>
 			</div>
-		{% endfor %}
-
-		{# Answer button #}
-		<div class="d-flex justify-content-center">
-			<a href="/answers/new/{{ question.id }}" class="btn btn-info">Post Answer</a>
 		</div>
-	</div>
-
-{% endblock %}
+	{% endblock %}

@@ -4,7 +4,6 @@
 {% block body %}
 	<div class="container">
 		{{ form_errors(form) }}
-
 		{{ form_start(form) }}
 		{{ form_row(form.firstName) }}
 		{{ form_row(form.lastName) }}
@@ -16,58 +15,58 @@
 
 
 		{# <div class="container">
-															<div class="row">
-																<div class="col-3">
-																	<img src="/assets/defaultUser.png" alt="" style="width: 180px; height: 180px">
-																</div>
-																<div class="col-9">
-																	<p>Name:
-																		{{ user.firstName }}</p>
-																	<p>Job Title:
-																	</p>
-																	<p>Member since:
-																	</p>
-																	<p>Rank:
+											<div class="row">
+												<div class="col-3">
+													<img src="/assets/defaultUser.png" alt="" style="width: 180px; height: 180px">
+												</div>
+												<div class="col-9">
+													<p>Name:
+														{{ user.firstName }}</p>
+													<p>Job Title:
+													</p>
+													<p>Member since:
+													</p>
+													<p>Rank:
+													</p>
+												</div>
+											</div>
+											<div class="row my-4">
+												<div class="col-sm-6 mb-3 mb-sm-0">
+													<div class="card bg-secondary">
+														<div class="card-body d-flex">
+															<div class="card text-center m-2 " style="width: 10rem;">
+																<div class="card-body">
+																	<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
+																	<p class="card-text">Votes:
 																	</p>
 																</div>
 															</div>
-															<div class="row my-4">
-																<div class="col-sm-6 mb-3 mb-sm-0">
-																	<div class="card bg-secondary">
-																		<div class="card-body d-flex">
-																			<div class="card text-center m-2 " style="width: 10rem;">
-																				<div class="card-body">
-																					<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
-																					<p class="card-text">Votes:
-																					</p>
-																				</div>
-																			</div>
-																			<div class="card text-center m-2" style="width: 10rem;">
-																				<div class="card-body">
-																					<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
-																					<p class="card-text">Answers:
-																					</p>
-																				</div>
-																			</div>
-																			<div class="card text-center m-2" style="width: 10rem;">
-																				<div class="card-body">
-																					<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
-																					<p class="card-text">Questions:
-																					</p>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="col-sm-6">
-																	<div class="card bg-secondary">
-																		<div class="card-body">
-																			<h5 class="card-title">Badges earned</h5>
-																			<p class="card-text"><img src="/assets/badge.png" alt="" style="width: 180px; height: 180px"></p>
-																		</div>
-																	</div>
+															<div class="card text-center m-2" style="width: 10rem;">
+																<div class="card-body">
+																	<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
+																	<p class="card-text">Answers:
+																	</p>
 																</div>
 															</div>
-														</div> #}
+															<div class="card text-center m-2" style="width: 10rem;">
+																<div class="card-body">
+																	<h5 class="card-title"><img src="/assets/votes-icon.png" alt=""></h5>
+																	<p class="card-text">Questions:
+																	</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="card bg-secondary">
+														<div class="card-body">
+															<h5 class="card-title">Badges earned</h5>
+															<p class="card-text"><img src="/assets/badge.png" alt="" style="width: 180px; height: 180px"></p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div> #}
 	</div>
 {% endblock %}
