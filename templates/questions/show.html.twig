@@ -15,21 +15,21 @@
 			{% if question.image is not empty %}
         		<img src="{{ asset('question_images/' ~ question.image) }}" class="card-img-top" alt="{{ question.title }}">
     		{% endif %}
-				<div class="row">
-					<div class="col-1 d-flex flex-column align-items-center justify-content-center">
-						<p>
-							<a href="/ratingsquestions/voteg/{{ question.id }}">
-								<img src="/assets/thumbs-up-35.png" alt=""></a>
-						</p>
-						<p></p>
-						<p>
-							<a href="/ratingsquestions/voteb/{{ question.id }}">
-								<img src="/assets/thumbs-down-35.png" alt=""></a>
-						</p>
-						<p>
-							<strong>Rating:
-								{{ sum }}</strong>
-						</p>
+			<div class="row">
+				<div class="col-1 d-flex flex-column align-items-center justify-content-center">
+					<p>
+						<a href="/ratingsquestions/voteg/{{ question.id }}">
+							<img src="/assets/thumbs-up-35.png" alt=""></a>
+					</p>
+					<p></p>
+					<p>
+						<a href="/ratingsquestions/voteb/{{ question.id }}">
+							<img src="/assets/thumbs-down-35.png" alt=""></a>
+					</p>
+					<p>
+						<strong>Rating:
+							{{ sum }}</strong>
+					</p>
 
 
 				</div>
@@ -39,6 +39,13 @@
 					</div>
 					<div class="card-body">
 						<blockquote class="blockquote mb-0">
+							{% if user.id == question.fkIdUser.id %}
+								<p>
+									<strong>From:
+									</strong>
+									{{ user.firstName }}</p>
+							{% endif %}
+							<hr>
 							<p>
 								<strong>Your question:
 								</strong>
@@ -48,22 +55,21 @@
 								<div class="col-6 footer-card justify-content-start">
 									<strong>Tags:
 										{% for tag in tags %}
-											
-												{{tag}} 
+
+											{{tag}}
 
 
-							
 										{% endfor %}
 									</strong>
 								</div>
 
-									<div class="col-6 footer-card d-flex justify-content-end">asked on:
-										{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-								</div>
-							</blockquote>
-						</div>
+								<div class="col-6 footer-card d-flex justify-content-end">asked on:
+									{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
+							</div>
+						</blockquote>
 					</div>
 				</div>
+			</div>
 		</div>
 		<div class="text-end">
 			<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to Questions</a>
@@ -114,29 +120,36 @@
 						<div class="card-body">
 							<blockquote class="blockquote mb-0">
 								<p>
-									<strong>Your answer:
+									<strong>From:
 									</strong>
-									{{ answer.text }}</p>
-								<hr>
-								<div class="row">
-									<div class="col-6 footer-card justify-content-start">
-										<strong># Tags:
-										</strong>
-									</div>
-									<div class="col-6 footer-card d-flex justify-content-end">answered on:
-										{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
-								</div>
-							</blockquote>
+									{{ answer.fkIdUser.firstName }}
+
+									<hr>
+									<div class="row">
+										<p>
+											<strong>Your answer:
+											</strong>
+											{{ answer.text }}</p>
+										<hr>
+										<div class="row">
+											<div class="col-6 footer-card justify-content-start">
+												<strong># Tags:
+												</strong>
+											</div>
+											<div class="col-6 footer-card d-flex justify-content-end">answered on:
+												{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</div>
+										</div>
+									</blockquote>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
+			{% endfor %}
+
+			{# Answer button #}
+			<div class="d-flex justify-content-center">
+				<a href="/answers/new/{{ question.id }}" class="btn btn-info">Post Answer</a>
 			</div>
-		{% endfor %}
-
-		{# Answer button #}
-		<div class="d-flex justify-content-center">
-			<a href="/answers/new/{{ question.id }}" class="btn btn-info">Post Answer</a>
 		</div>
-	</div>
-
-{% endblock %}
+	{% endblock %}

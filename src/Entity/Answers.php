@@ -24,7 +24,11 @@ class Answers
     private ?string $text = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?User $fk_id_user = null;
+    // #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "answers", cascade: ["remove"])]
+    // #[ORM\JoinColumn(name: "fk_id_user_id", referencedColumnName: "id", onDelete: "CASCADE")]
+
 
     #[ORM\ManyToOne]
     private ?Questions $fk_id_questions = null;
@@ -87,7 +91,7 @@ class Answers
         return $this->fk_id_questions;
     }
 
-   
+
 
 
     public function setFkIdQuestions(?Questions $fk_id_questions): static

@@ -62,8 +62,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $this->createQueryBuilder('u');
         $qb
             ->select('u.email', 'u.id', 'SUM(r.Votes) as totalVotes')
+            ->leftJoin('App\Entity\Answers', 'a', 'WITH', 'u.id = a.fk_id_user')
+            ->leftJoin('App\Entity\RatingsAnswers', 'r', 'WITH', 'a.id = r.fk_id_answers')
+            ->where('u.id = :userId') // Add condition to filter by user ID
+            ->setParameter('userId', $id)
+            ->groupBy('u.id')
+            ->setMaxResults(1);
+        return $query = $qb->getQuery()->getOneOrNullResult();
+    }
+
+    //used to find the total scoring for all questions of every user:
+    public function findQuestionsOfUser($id)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->select('u.email', 'u.id', 'Count(q.id) as totalQuestions')
             ->leftJoin('App\Entity\Questions', 'q', 'WITH', 'u.id = q.fk_id_user')
-            ->leftJoin('App\Entity\RatingsAnswers', 'r', 'WITH', 'q.id = r.fk_id_answers')
+            ->where('u.id = :userId') // Add condition to filter by user ID
+            ->setParameter('userId', $id)
+            ->groupBy('u.id')
+            ->setMaxResults(1);
+        return $query = $qb->getQuery()->getOneOrNullResult();
+    }
+
+    //used to find the total scoring for all questions of every user:
+    public function findAnswersOfUser($id)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->select('u.email', 'u.id', 'Count(a.id) as totalAnswers')
+            ->leftJoin('App\Entity\Answers', 'a', 'WITH', 'u.id = a.fk_id_user')
             ->where('u.id = :userId') // Add condition to filter by user ID
             ->setParameter('userId', $id)
             ->groupBy('u.id')

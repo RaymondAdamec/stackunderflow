@@ -77,14 +77,6 @@ class StaticController extends AbstractController
             ->getQuery()
             ->getSingleScalarResult();
 
-        // find scoringof a specific user for all his/her questions: 
-        $userScoringQuestion = $userRepository->findScoringQuestion(2);
-
-        // find scoringof a specific user for all his/her answers: 
-        $userScoringAnswer = $userRepository->findScoringAnswer(2);
-
-        // summing up the voting of a user for all his/her questions AND answers:
-        $totalVoting = (int)$userScoringAnswer['totalVotes'] + (int)$userScoringQuestion['totalVotes'];
 
 
 
@@ -97,7 +89,7 @@ class StaticController extends AbstractController
             'userCount' =>   $userCount,
             'bestUserAnswer' => $bestUserAnswer,
             'bestUser' => $bestUser,
-            'totalVoting' => $totalVoting
+
         ]);
     }
 }

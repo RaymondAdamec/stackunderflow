@@ -14,6 +14,13 @@
 					<td>{{ answer.id }}</td>
 				</tr>
 				<tr>
+					<th>From user:
+					</th>
+					{% if user.id == answer.fkIdUser.id %}
+						<td>{{ user.firstName }}</td>
+					{% endif %}
+				</tr>
+				<tr>
 					<th>Title</th>
 					<td>{{ answer.title }}</td>
 				</tr>
