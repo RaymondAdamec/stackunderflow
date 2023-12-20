@@ -32,6 +32,7 @@ class Questions
     private ?bool $isChecked = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?User $fk_id_user = null;
 
     #[ORM\Column(nullable: true)]

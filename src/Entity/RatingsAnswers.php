@@ -17,9 +17,11 @@ class RatingsAnswers
     private ?int $Votes = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Answers $fk_id_answers = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?User $fk_id_user = null;
 
     public function getId(): ?int

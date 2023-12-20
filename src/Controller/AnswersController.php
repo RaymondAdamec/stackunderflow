@@ -78,7 +78,7 @@ class AnswersController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('answers/edit.html.twig', [
@@ -93,6 +93,6 @@ class AnswersController extends AbstractController
             $entityManager->remove($answer);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('app_answers_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_questions_index', [], Response::HTTP_SEE_OTHER);
     }
 }
