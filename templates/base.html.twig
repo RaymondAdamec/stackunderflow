@@ -29,20 +29,6 @@
 			<a href="{{ path('app_about') }}">About</a>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}<a href="{{ path('app_questions_index') }}">Questions</a> {% endif %}
 			<a href="{{ path('app_community') }}">Community</a>
-			<div class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="{{ path('app_questions_index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					FAQ's
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="/?type=html">Html</a>
-					<a class="dropdown-item" href="/?type=css">CSS,SCSS,SASS</a>
-					<a class="dropdown-item" href="/?type=javascript">JavaScript</a>
-					<a class="dropdown-item" href="/?type=php">PHP</a>
-					<hr class="dropdown-divider">
-					<a class="dropdown-item" href="/?type=angular">Angular</a>
-					<a class="dropdown-item" href="/?type=symgony">Symfony</a>
-				</div>
-			</div>
 
 			{% if is_granted('ROLE_ADMIN') %}
 				<div class="nav-item dropdown">
@@ -50,8 +36,8 @@
 						My account
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/user_admin">Admin Dashboard</a>
-						<a class="dropdown-item" href="{{ path('app_admin') }}">User Dashboard</a>
+						<a class="dropdown-item" href="{{ path('app_admin') }}">Admin Dashboard</a>
+						<a class="dropdown-item" href="/user_admin">User Dashboard</a>
 						<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
 					</div>
 				</div>
