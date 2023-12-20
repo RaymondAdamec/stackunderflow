@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\AnswersRepository;
 use App\Repository\QuestionsRepository;
 use App\Repository\UserRepository;
+use App\Service\PdfExportService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,5 +92,51 @@ class StaticController extends AbstractController
             'bestUser' => $bestUser,
 
         ]);
+    }
+    public function exportToPdf(PdfExportService $pdfExportService, QuestionsRepository $questionsRepository, AnswersRepository $answersRepository, UserRepository $userRepository)
+    {
+        // # of total questions
+        $questionCount = $questionsRepository->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+        // # of total answers
+        $answerCount = $answersRepository->createQueryBuilder('a')
+            ->select('COUNT(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // # of total users
+        $userCount = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // find best questions incl. user details
+        $bestUserQuestion = $userRepository->findbestQuestion();
+
+
+        // find best answer incl. user details
+        $bestUserAnswer = $userRepository->findBestAnswer();
+
+        // find  user that posted the best (most postive votes) questions
+        $bestUser = $userRepository->findUserVotes();
+
+
+
+
+
+        $data = ['questionCount' => $questionCount, 'answerCount' => $answerCount, 'userCount' => $userCount, 'bestUserQuestion' => $bestUserQuestion, 'bestUserAnswer' => $bestUserAnswer, 'bestUser' => $bestUser];
+        $pdfFile = $pdfExportService->exportToPdf($data);
+
+        // Rückgabe der PDF-Datei als Antwort
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'inline; filename="output.pdf"');
+        $response->setContent(file_get_contents($pdfFile));
+
+        return $response;
     }
 }
