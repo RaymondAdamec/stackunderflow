@@ -1,8 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}About Controller!{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}" />
+{% endblock %}
 {% block body %}
-<p>hello world</p>
+<div class="container-fluid">
+    <img src="{{asset('picture_directory/HomeBaner.jpg')}}" class="heroBanner">
+    <h1 class="hero-header text-center">
+			<em>About Us</em>
+		</h1>
+</div>
+<!-- About Section -->
+<div class="container my-4">
+<section id="introduction">
+    <h1 class="d-flex justify-content-center mt-5 mb-3 h1">StackUnderFlow</h1>
+    <p>Welcome to StackUnderFlow, where the coding prowess of our founders, Bryan, Bernhard, Raymond, and Tobias, converges with community spirit! Founded in December 2023, we are thrilled to unveil a dynamic and collaborative platform dedicated to the art and science of coding.</p>
+
+    <p>StackUnderFlow is not just a website; it stands as an inclusive space that unites coding enthusiasts, professionals, and learners alike. Since our inception, our mission has been both simple and profound — to construct the definitive collection of coding questions and answers. This dynamic, community-driven initiative thrives on the diversity of voices and experiences within the coding universe.</p>
+
+    <p>Here at StackUnderFlow, we champion the power of collective knowledge, an ethos set by our visionary founders. Bryan, Bernhard, Raymond, and Tobias have crafted a platform that serves as a haven for those seeking solutions to technical challenges and a podium for those eager to share their coding wisdom. Being recognized as one of the world's most popular websites fills us with pride, a testament to the quality of our content and the resilience of our community.</p>
+
+    <p>Embark on this thrilling journey with us, where coding questions discover answers, and each contribution enriches our collective coding tapestry. StackUnderFlow transcends being a mere resource; it's a community-driven force molded by the vision and dedication of Bryan, Bernhard, Raymond, and Tobias, shaping the future of coding excellence. Welcome aboard to the coding adventure that began in December 2023!</p>
+</section>
+<!-- Team Section -->
+<section>
+<h1 class="d-flex justify-content-center mt-5 mb-5 h1">Our Team</h1>
+<div class="d-flex justify-content-around">
+<div class="card" style="width: 16rem;">
+  <img src="https://cdn.pixabay.com/photo/2016/02/22/17/20/man-1216073_640.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">Bryan</h3>
+    <p class="card-text">Team Leader / CEO</p>
+    <hr>
+    <p>Frontend & Backend Developer</p>
+  </div>
+</div>
+<div class="card" style="width: 16rem;">
+  <img src="https://cdn.pixabay.com/photo/2016/09/02/22/40/man-1640460_640.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">Bernhard</h3>
+    <p class="card-text ">COO</p>
+    <hr>
+    <p class="">Backend Developer Logistics</p>
+  </div>
+</div>
+<div class="card" style="width: 16rem;">
+  <img src="https://cdn.pixabay.com/photo/2017/12/31/15/56/portrait-3052641_640.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">Raymond</h3>
+    <p class="card-text">CTO</p>
+    <hr>
+    <p class="">Frontend & Backend Developer</p>
+  </div>
+</div>
+<div class="card" style="width: 16rem;">
+  <img src="https://cdn.pixabay.com/photo/2015/07/20/06/53/man-852423_640.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">Tobias</h3>
+    <p class="card-text">CSO</p>
+    <hr>
+    <p>Frontend & Backend Developer</p>
+  </div>
+</div>
+
+</div>
+</section>
+
+</div>
 
 {% endblock %}

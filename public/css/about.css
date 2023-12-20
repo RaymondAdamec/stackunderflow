@@ -1,0 +1,74 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.heroBanner {
+  width: 100vw;
+  height: 70vh;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: auto;
+}
+
+.hero-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.801);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+em {
+  font-size: 60px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.card-img-top {
+  height: 250px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 28px 72px 5px;
+}
+
+.card {
+  background-color: #cbdbff00;
+  border: none;
+  color: whitesmoke;
+}
+
+.card p {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.card h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.h1 {
+  color: whitesmoke;
+  text-shadow: 3px 3px 6px #000000;
+}
+
+li {
+  font-size: 20px !important;
+  margin-bottom: 18px;
+  color: whitesmoke;
+  text-align: justify;
+}
+
+strong {
+  text-decoration: underline;
+}
