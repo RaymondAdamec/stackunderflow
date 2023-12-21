@@ -6,3 +6,13 @@
   background-color: #cbdbff;
   color: black;
 }
+
+.table > thead > tr > th {
+  background-color: #cbdbff !important;
+}
+.table > tbody > tr > th {
+  background-color: #cbdbff !important;
+}
+.table > tbody > tr > td {
+  background-color: #cbdbff !important;
+}
