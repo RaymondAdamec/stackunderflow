@@ -19,7 +19,7 @@
 	{% block javascripts %}{% endblock %}
 	<body>
 		{# ***************************************************
-												***************NAVBAR STARTS HERE***************** #}
+						***************NAVBAR STARTS HERE***************** #}
 		<div class="navbar">
 			<div class="logo">
 				<img class="homelogo1" src="{{ asset('/picture_directory/logo5.jpeg') }}" alt="LOGO">
@@ -27,7 +27,9 @@
 			<h1>StackUnderFlow</h1>
 			<a href="{{ path('app_home') }}">Home</a>
 			<a href="{{ path('app_about') }}">About</a>
-			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}<a href="{{ path('app_questions_index') }}">Questions</a> {% endif %}
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+				<a href="{{ path('app_questions_index') }}">Questions</a>
+			{% endif %}
 			<a href="{{ path('app_community') }}">Community</a>
 
 			{% if is_granted('ROLE_ADMIN') %}
@@ -68,7 +70,7 @@
 
 		{% block body %}{% endblock %}
 		{# ***************************************************
-										**************fOOTER STARTS HERE***************** #}
+																**************fOOTER STARTS HERE***************** #}
 		<footer>
 			<div class="footerContainer">
 				<div class="socialIcons">

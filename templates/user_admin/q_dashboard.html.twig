@@ -6,7 +6,9 @@
 
 	<div class="container">
 		<table class="table table-info table-striped-columns">
-			<div class="header text-center">Q&A DASHBOARD</div>
+			<div class="header text-center">
+				<h1>Q&A DASHBOARD</h1>
+			</div>
 			<thead>
 				<tr>
 					<th scope="col">Question ID</th>
@@ -17,7 +19,6 @@
 				</tr>
 			</thead>
 			{% for question in questions %}
-
 				<tbody>
 					<tr>
 						{# <th scope="row">1</th> #}
@@ -35,14 +36,11 @@
 						</td>
 						<td>{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 					</tr>
-
 				</tbody>
-
-			</table>
-		{% endfor %}
-		<form method="post" action="{{ path('app_questions_delete', {'id': question.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ question.id) }}">
-			<button class="btn btn-danger">Delete</button>
-		</form>
+			{% endfor %}
+		</table>
+		<div class="text-end">
+			<a href="{{ path('delete_inactive_questions') }}" class="btn btn-danger">Delete Inactive Questions</a>
+		</div>
 	</div>
 {% endblock %}

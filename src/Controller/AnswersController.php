@@ -43,8 +43,10 @@ class AnswersController extends AbstractController
             $answer->setFkIdQuestions($question);
             $answer->setFkIdUser($user);
             $answer->setCreatedAt($now);
+            $question->setGotAnyAnswer(1);
             // dd($answer);
             $entityManager->persist($answer);
+            $entityManager->persist($question);
             $entityManager->flush();
             return $this->redirectToRoute('app_questions_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }

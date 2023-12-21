@@ -71,7 +71,6 @@ class QuestionsController extends AbstractController
             'tagQuestionArray' => $tagQuestionArray,
             'questionSumArray' => $questionSumArray,
             'users' => $userRepository->findAll(),
-
             'user' => $user
         ]);
     }
@@ -175,8 +174,6 @@ class QuestionsController extends AbstractController
         }
 
         ($user->getFirstName());
-
-
 
         return $this->render('questions/show.html.twig', [
             'question' => $question,

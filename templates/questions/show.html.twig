@@ -36,24 +36,26 @@
 
 				</div>
 				<div class="col-11 border-start ps-0">
-					<div class="card-header">
-						<h2>Topic:
-							{{ question.title }}
-							<i class="bi bi-question"></i>
-						</h2>
-					</div>
 					<div class="card-body">
+						<div class="card-header text-end">
+							<h2>Topic:
+								{{ question.title }}
+								<i class="bi bi-question"></i>
+							</h2>
+						</div>
 						<blockquote class="blockquote mb-0">
 							{% if user.id == question.fkIdUser.id %}
 								<p>
 									<strong>
 										From:
 									</strong>
-									{{ user.firstName }}</p>
+									{{ user.firstName }}
+								</p>
 							{% endif %}
 							<hr>
+
 							<p>
-								<strong>Your question:
+								<strong>Questions:
 								</strong>
 								{{ question.text }}</p>
 							<hr>
@@ -70,7 +72,7 @@
 									</strong>
 								</div>
 
-								<div class="col-6 footer-card d-flex justify-content-end">asked on:
+								<div class="col-6 footer-card d-flex justify-content-end">Asked on:
 									{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
 							</div>
 						</blockquote>
@@ -100,7 +102,7 @@
 	</div>
 	{# Answers #}
 	<div class="container">
-		<h1 class="d-flex justify-content-center">Your answers</h1>
+		<h1 class="d-flex justify-content-center">Answers</h1>
 		{% for answer in answers %}
 			<div class="card1 my-3">
 				<div class=" row">
@@ -119,26 +121,30 @@
 						</p>
 					</div>
 					<div class="col-11 border-start ps-0">
-						<div class="card1-header text-start p-3">
+						<div class="card1-header text-end p-3">
 							<h2>
 								Topic:
 								<a class href="{{ path('app_answers_show', {'id': answer.id}) }}">{{ answer.title }}
 									<i class="bi bi-check"></i>
 								</a>
 							</h2>
+
+							<hr>
 						</div>
 						<div class="card1-body text-start p-3">
 							<blockquote class="blockquote mb-0">
 								<p>
 									<strong>From:
-										{{ answer.fkIdUser.firstName }}</strong>
+									</strong>
+									{{ answer.fkIdUser.firstName }}
 								</p>
-								<hr>
 								<p>
-									<strong>Your answer:
-										{{ answer.text }}</strong>
+									<strong>Answers:
+									</strong>
+									{{ answer.text }}
 								</p>
 								<hr>
+
 								<div class="row">
 									<div class="col-6 footer-card justify-content-start p-3">
 										<strong>#</strong>
