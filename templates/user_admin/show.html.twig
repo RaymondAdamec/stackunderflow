@@ -2,7 +2,9 @@
 
 {% block title %}User
 {% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/userDashboard.css"/>
+{% endblock %}
 {% block body %}
 	<br>
 	<div class="container">
@@ -42,11 +44,18 @@
 			</tbody>
 		</table>
 
+	<div class="d-flex justify-content-center mt-4">
+		<div class="d-flex">
+			<a class="btn btn-warning me-2" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit user</a>
+			{{ include('user_admin/_delete_form.html.twig') }}
+		</div>
+		<div class="ms-auto">
+			<a class="btn btn-primary" href="{{ path('app_user_index') }}">Back to dashboard</a>
+		</div>
+	</div>
 
-		<a class="btn btn-primary" href="{{ path('app_user_index') }}">Back to dashboard</a>
 
-		<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit user</a>
-
-		{{ include('user_admin/_delete_form.html.twig') }}
+	
+			
 	</div>
 {% endblock %}

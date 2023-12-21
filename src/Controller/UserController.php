@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\FileUploader2;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user_admin')]
 class UserController extends AbstractController
@@ -26,13 +27,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Hash the password before persisting the user
+            $hashedPassword = $passwordEncoder->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
+
+            // Process the uploaded picture
             $picture = $form->get('picture')->getData();
             if ($picture) {
                 $pictureName = $fileUploader2->upload($picture);
@@ -40,6 +46,8 @@ class UserController extends AbstractController
                 $pictureName = "default.jpeg";
             }
             $user->setPicture($pictureName);
+
+            // Persist the user to the database
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -53,9 +61,8 @@ class UserController extends AbstractController
     }
 
     #[Route('/q_dashboard', name: 'app_user_dashquestion', methods: ['GET'])]
-    public function dashquestion(AnswersRepository $answersRepository, QuestionsRepository $questionsRepository,): Response
+    public function dashquestion(AnswersRepository $answersRepository, QuestionsRepository $questionsRepository): Response
     {
-        // get an array with every question (Id) with the corresponding tag title 
         $tagQuestionArray = [];
         $allQuestions = $questionsRepository->findAll();
         foreach ($allQuestions as $question) {
@@ -73,10 +80,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
-
-
-
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -85,14 +88,19 @@ class UserController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader2 $fileUploader2, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+            if ($newPassword) {
+                $hashedPassword = $passwordEncoder->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
+            }
+
             $picture = $form->get('picture')->getData();
             if ($picture) {
                 if ($user->getPicture() != "default.jpeg") {
