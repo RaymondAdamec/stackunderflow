@@ -22,7 +22,6 @@ class QuestionsType extends AbstractType
             ->add('text')
 
             ->add('image', FileType::class, [
-                // 'attr' => ['class' => 'form-control'], // do we need this line?! just styling
                 'label' => 'Question image',
                 'mapped' => false,
                 'required' => false,
@@ -44,7 +43,8 @@ class QuestionsType extends AbstractType
                 'class' => Tags::class,
                 'choice_label' => 'title',
                 'multiple' => true,
-                'mapped' => false
+                'mapped' => false,
+                'required' => false,
             ])
             //             ->add('fk_id_user', EntityType::class, [
             //                 'class' => user::class,
