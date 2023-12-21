@@ -1,52 +1,59 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/answers.css')}}" type="text/css"/>
+{% endblock %}
 {% block title %}Answers
 {% endblock %}
 {% block body %}
 	<br>
-	<div class="container">
-		<h1 class="text-center">Answer details</h1>
 
-		<table class="table">
-			<tbody>
-				<tr>
-					<th>Id</th>
-					<td>{{ answer.id }}</td>
-				</tr>
-				<tr>
-					<th>From user:
-					</th>
-					{% if user.id == answer.fkIdUser.id %}
-						<td>{{ user.firstName }}</td>
-					{% endif %}
-				</tr>
-				<tr>
-					<th>Title</th>
-					<td>{{ answer.title }}</td>
-				</tr>
-				<tr>
-					<th>Created_at</th>
-					<td>{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-				</tr>
-				<tr>
-					<th>Text</th>
-					<td>{{ answer.text }}</td>
-				</tr>
-			</tbody>
-		</table>
+	<h1 class="text-center">Answer details</h1>
+	<div class="container d-flex justify-content-center align-items-center" style="width: 500px;">
 		<div class="text-center">
-			<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to questions</a>
-			{% if is_granted('ROLE_ADMIN') %}
-				<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
-				{{ include('answers/_delete_form.html.twig') }}
-
+			<div class="card mb-3 mx-auto" style="max-width: 100%;">
+				<div class="row g-0">
+					<div class="col-8 border-start ps-0">
+						<div class="card-body">
+							<h5 class="card-title">Topic:
+								{{ answer.title }}</h5><hr>
+							<p class="card-text">
+								<strong>Id :</strong>
+								{{ answer.id }}
+							</p><hr>
+							<p class="card-text">
+								<strong>From user:</strong>
+								{% if user.id == answer.fkIdUser.id %}
+									<td>{{ user.firstName }}</td>
+								{% endif %}
+							</p><hr>
+							<p class="card-text">
+								<strong>Description:</strong>
+								{{ answer.text }}
+							</p><hr>
+							<div class="col-md-4">
+								<img src="..." class="img-fluid rounded-start" alt="...">
+							</div>
+							<p class="card-text">
+								<small class="text">Answered on:
+									{{ answer.createdAt ? answer.createdAt|date('Y-m-d H:i:s') : '' }}</small>
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
-		{% endif %}
-		<div class="text-center d-flex mb-4">
-			{% if test2Var %}
-				<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
-				{{ include('answers/_delete_form.html.twig') }}
-			{% endif %}
 		</div>
+	</div>
+	<div class="text-center">
+		<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to questions</a>
+		{% if is_granted('ROLE_ADMIN') %}
+			<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
+			{{ include('answers/_delete_form.html.twig') }}
+		</div>
+	{% endif %}
+	<div class="text-center d-flex mb-4">
+		{% if test2Var %}
+			<a class="btn btn-warning" href="{{ path('app_answers_edit', {'id': answer.id}) }}">Edit</a>
+			{{ include('answers/_delete_form.html.twig') }}
+		{% endif %}
 	</div>
 {% endblock %}

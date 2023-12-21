@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/questions.css')}}" type="text/css"/>
+{% endblock %}
 {% block title %}Questions index
 {% endblock %}
 
 {% block body %}
+	<br>
 	<div class="container">
-		<h1 class="d-flex justify-content-center m-5">All Questions</h1>
+		{% if is_granted('ROLE_USER') %}
+			<div class="text-start text-shadow">
+				<h2>Welcome
+					{{app.user.firstName}}!
+				</h2>
+			</div>
+		{% endif %}
+		<h1 class="d-flex justify-content-center m-5">Q&A Forum</h1>
 		<div class="m-3 d-flex justify-content-center">
 			<a href="{{ path('app_questions_new') }}" class="btn btn-info">Ask Question</a>
 		</div>
@@ -71,14 +81,16 @@
 							<a href="/ratingsquestions/voteb/{{ question.id }}">
 								<img src="/assets/thumbs-down-35.png" alt=""></a>
 						</p>
-						<p>
-							<strong>Rating:
+						<p class="text-center">
+							<strong>
+								Like:
 								{{ questionSumArray[question.id] ?? 0 }}</strong>
 						</p>
 					</div>
 					<div class="col-11 border-start ps-0">
 						<div class="card-header">
-							<h2>Topic:
+							<h2>
+								Topic:
 								<a href="{{ path('app_questions_show', {'id': question.id}) }}">{{ question.title }}</a>
 							</h2>
 						</div>
@@ -86,16 +98,19 @@
 							<blockquote class="blockquote mb-0">
 								{% for user in users %}
 									{% if user.id == question.fkIdUser.id %}
-										<p>User:
+										<p>
+											<strong>User:
+											</strong>
 											{{ user.firstName }}</p>
 									{% endif %}
 								{% endfor %}
-								<p>Description:
+								<p class="description">
+									<strong>Description:</strong>
 									{{ question.text }}</p>
 								<hr>
 								<div class="row">
 									<div class="col-6 footer-card justify-content-start">
-										Tags:
+										#
 										{% for tag in tagQuestionArray %}
 											{% if tag.questionid == question.id %}
 												{{tag.tagTitle}}
@@ -103,7 +118,8 @@
 											{% else %}No tags added by User
 										{% endfor %}
 									</div>
-									<div class="col-6 footer-card d-flex justify-content-end">{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
+									<div class="col-6 footer-card d-flex justify-content-end">Asked on:
+										{{ question.createdAt ? question.createdAt|date('Y-m-d H:i:s') : '' }}</div>
 								</div>
 							</blockquote>
 						</div>

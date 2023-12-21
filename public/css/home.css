@@ -1,6 +1,13 @@
 /* *************************************************
 *******##########*** HERO SECTION ***###########****
 ***************************************************/
+h1 {
+
+    color: whitesmoke;
+    text-shadow: 3px 3px 6px #000000;
+
+}
+
 .hero {
     position: relative;
     margin-bottom: 20px;
@@ -25,18 +32,13 @@
     transform: translate(-50%, -50%);
     color: rgba(255, 255, 255, 0.801);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-size: 40px !important;
+    font-size: 50px !important;
 }
 
 /* *************************************************
 *******##########*** LOGO & SLOGAN ***###########****
 ***************************************************/
-.filler2 {
-    display: grid;
-    width: 600px;
-    height: auto;
-    opacity: 0.7;
-}
+
 
 
 /* *************************************************
@@ -51,15 +53,31 @@
 
 .item-2 {
     position: relative;
+    border: 2px solid purple;
+    /* Change the color as needed */
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3),
+        -5px -5px 10px rgba(255, 255, 255, 0.7);
+
 
 }
 
-.item-2 h3 {
+.item-2 .header3 {
     position: absolute;
     top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgba(255, 255, 255, 0.507);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.747);
+    text-decoration: none;
+    font-size: 25px;
+
+}
+
+.item-2 .header3:hover {
+    color: #FFD700;
+    /* Change the color as needed */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.747);
 }
 
@@ -73,5 +91,15 @@
     width: 100vw;
     height: 70vh;
     object-fit: cover;
+    opacity: 0.8;
+}
+
+.filler2 {
+    display: grid;
+    width: 100%;
+    height: auto;
     opacity: 0.7;
+    border-radius: 15px;
+
+
 }

@@ -1,0 +1,14 @@
+* {
+    color: whitesmoke;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.3);
+    /* Lighter background */
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    /* Thicker border */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background-image: linear-gradient(90deg, rgba(0, 0, 255, 0.411) 0%, rgba(128, 0, 128, 0.685) 100%);
+}

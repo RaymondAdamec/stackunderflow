@@ -4,9 +4,14 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Create new Answers</h1>
+	<br>
+	<div class="container ">
 
-	{{ include('answers/_form.html.twig') }}
+		<h1>Create new Answers</h1>
+		<br>
 
-	<a href="{{ path('app_questions_index') }}">Back</a>
+		{{ include('answers/_form.html.twig') }}
+
+		<a class="btn btn-primary mt-2" href="{{ path('app_questions_index') }}">Back</a>
+	</div>
 {% endblock %}

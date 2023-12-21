@@ -4,11 +4,12 @@
 {% endblock %}
 
 {% block body %}
+	<br>
 	<div class="container">
 		<h1>Create new Questions</h1>
 
 		{{ include('questions/_form.html.twig') }}
 
-		<a href="{{ path('app_questions_index') }}">Back to questions</a>
+		<a class="btn btn-primary" href="{{ path('app_questions_index') }}">Back to questions</a>
 	</div>
 {% endblock %}

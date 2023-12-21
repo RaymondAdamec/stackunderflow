@@ -19,10 +19,10 @@
 	{% block javascripts %}{% endblock %}
 	<body>
 		{# ***************************************************
-																***************NAVBAR STARTS HERE***************** #}
+												***************NAVBAR STARTS HERE***************** #}
 		<div class="navbar">
 			<div class="logo">
-				<img class="homelogo1" src="{{ asset('/picture_directory/logo1.jpeg') }}" alt="LOGO">
+				<img class="homelogo1" src="{{ asset('/picture_directory/logo5.jpeg') }}" alt="LOGO">
 			</div>
 			<h1>StackUnderFlow</h1>
 			<a href="{{ path('app_home') }}">Home</a>
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			{% elseif is_granted('ROLE_USER') %}
-					{# <img src="{{ asset}}" class="card-img-top" alt="{{ registrationForm.first_name }} '.' {{ registrationForm.last_name }}"> #}
+				{# <img src="{{ asset}}" class="card-img-top" alt="{{ registrationForm.first_name }} '.' {{ registrationForm.last_name }}"> #}
 				<div class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						My account
@@ -69,7 +69,7 @@
 			{% else %}
 				<div class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Sign up
+						Get started
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
@@ -81,7 +81,7 @@
 
 		{% block body %}{% endblock %}
 		{# ***************************************************
-					**************fOOTER STARTS HERE***************** #}
+										**************fOOTER STARTS HERE***************** #}
 		<footer>
 			<div class="footerContainer">
 				<div class="socialIcons">

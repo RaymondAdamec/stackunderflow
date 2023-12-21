@@ -1,3 +1,11 @@
-{% if app.user.isBanned %}
-    <p>Your account is currently banned.</p>
-{% endif %}
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container">
+		{% if app.user.isBanned %}
+			<h1 class="text-center">Welcome to StackUnderFlow</h1>
+			<div class="text-danger text-center">
+				<p>We regret to inform you that your account is currently banned.</p>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
