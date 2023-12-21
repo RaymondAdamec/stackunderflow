@@ -1,229 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adming Static page
+{% block title %}Admin Static page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/registerForm.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block body %}
 
-<a href="{{ path('export_route') }}" class="btn btn-primary">Export</a>
+<h1 class="text-center my-4">Statistics</h1>
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>Total number of asked Questions:</h4></th>
+    </tr>
+    <tr>
+        <td>Count:</td>
+        <td>{{questionCount}}</td>
+    </tr>
+</table>
 
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>Total number of Answers:</h4></th>
+    </tr>
+    <tr>
+        <td>Count:</td>
+        <td>{{answerCount}}</td>
+    </tr>
+</table>
 
-<div class="container border border-fluid">
-	<h1>Total number of asked Questions:</h1>
-		<p>{{questionCount}}</p>
-	</div>
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>Total number of Users:</h4></th>
+    </tr>
+    <tr>
+        <td>Count:</td>
+        <td>{{userCount}}</td>
+    </tr>
+</table>
 
-	<div class="container border border-fluid">
-		<h1>Total number of Answers:</h1>
-			<p>{{answerCount}}</p>
-		</div>
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>User who got the most Votes for all his/her questions</h4></th>
+    </tr>
+    <tr>
+        <td>User ID:</td>
+        <td>{{bestUser.id}}</td>
+    </tr>
+    <tr>
+        <td>Total votings for questions/answers:</td>
+        <td>{{bestUser.totalVotes}}</td>
+    </tr>
+    <tr>
+        <td>User email:</td>
+        <td>{{bestUser.email}}</td>
+    </tr>
+</table>
 
-		<div class="container border border-fluid">
-			<h1>Total number of Users:</h1>
-				<p>{{userCount}}</p>
-			</div>
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>Best rated Question</h4></th>
+    </tr>
+    <tr>
+        <td>Title of best question:</td>
+        <td>{{bestUserQuestion.title}}</td>
+    </tr>
+    <tr>
+        <td>Total voting on best question:</td>
+        <td>{{bestUserQuestion.totalVotes}}</td>
+    </tr>
+    <tr>
+        <td>User ID:</td>
+        <td>{{bestUserQuestion.id}}</td>
+    </tr>
+    <tr>
+        <td>User Email:</td>
+        <td>{{bestUserQuestion.email}}</td>
+    </tr>
+</table>
 
-<div class="container border border-fluid">
-<h1>User who got the most Votes for all his/her questions</h1>
-	<p>User ID: {{bestUser.id}}</p>
-	<p>User email: {{bestUser.email}}</p>
-	<p>Total voting on best question: {{bestUser.totalVotes}}</p>
-	
-</div>
-
-
-<div class="container border border-fluid">
-<h1>Best rated Question</h1>
-	<p>Title of best question: {{bestUserQuestion.title}}</p>
-	<p>Total voting on best question: {{bestUserQuestion.totalVotes}}</p>
-	<br>
-	<p><b>Question-Author Details:</b></p>
-	<p>User ID: {{bestUserQuestion.id}}</p>
-	<p>User Email: {{bestUserQuestion.email}}</p>
-</div>
-
-<div class="container border border-fluid">
-	<h1>Best rated Answer</h1>
-		<p>Title of best question: {{bestUserAnswer.title}}</p>
-		<p>Total voting on best question: {{bestUserAnswer.totalVotes}}</p>
-		<br>
-		<p><b>Question-Author Details:</b></p>
-		<p>User ID: {{bestUserAnswer.id}}</p>
-		<p>User Email: {{bestUserAnswer.email}}</p>
-	</div>
-
-
-
-
-
-
-
-
-	<div class="container">
-		<div class="container6">
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/userAvatar.jpeg')}}" alt="test1">
-				<h3 class="filler">Members</h3>
-			</div>
-
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/Q&A1.jpeg')}}" alt="test1">
-				<h3 class="filler">Questions</h3>
-			</div>
-
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
-				<h3 class="filler">Votes</h3>
-			</div>
-
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/post.jpeg')}}" alt="test1">
-				<h3 class="filler">Posts</h3>
-			</div>
-
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
-				<h3 class="filler">Optional</h3>
-			</div>
-
-			<div class="item6 text-center">
-				<img class="filler6" src="{{asset('/picture_directory/voting2.jpeg')}}" alt="test1">
-				<h3 class="filler">optional2</h3>
-			</div>
-		</div>
-
-		<div class="table-div">
-			<div class="left-tables">
-				<div class="header text-center">USER DASHBOARD</div>
-				<table class="table table-info table-striped-columns">
-					<thead>
-						<tr>
-							<th scope="col">User ID</th>
-							<th scope="col">Name</th>
-							<th scope="col">Last name</th>
-							<th scope="col">email</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<table class="table table-info table-striped-columns">
-					<div class="header text-center">Q&A DASHBOARD</div>
-					<thead>
-						<tr>
-							<th scope="col">Question ID</th>
-							<th scope="col">Topic</th>
-							<th scope="col">Created</th>
-							<th scope="col">Answered</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<div class="right-table">
-				<table class="table-user table-sm">
-					<thead>
-						<h2>Recent users</h2>
-						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">Id</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-						</tr>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-						</tr>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-
-						</tr>
-					</tbody>
-				</table>
-				<table class="table-question table-sm">
-					<thead>
-						<h2>Recent topics/questions</h2>
-						<tr>
-							<th scope="col">Topic</th>
-							<th scope="col">Id</th>
-
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-						</tr>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-						</tr>
-						<tr>
-
-							<td>...</td>
-							<td>...</td>
-
-
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+<table class="container border border-fluid w-50">
+    <tr>
+        <th colspan="2"><h4>Best rated Answer</h4></th>
+    </tr>
+    <tr>
+        <td>Title of best answer:</td>
+        <td>{{bestUserAnswer.title}}</td>
+    </tr>
+    <tr>
+        <td>Total voting on best answer:</td>
+        <td>{{bestUserAnswer.totalVotes}}</td>
+    </tr>
+    <tr>
+        <td>User ID:</td>
+        <td>{{bestUserAnswer.id}}</td>
+    </tr>
+    <tr>
+        <td>User Email:</td>
+        <td>{{bestUserAnswer.email}}</td>
+    </tr>
+</table>
+<div class="container d-flex justify-content-center"><a href="{{ path('export_route') }}" class="btn btn-primary btn-lg">Export</a></div>
 {% endblock %}

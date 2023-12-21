@@ -1,52 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PDF Export</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <div class="container border border-fluid">
-        <h1>Total number of asked Questions:</h1>
-            <p>{{data.questionCount}}</p>
-        </div>
-    
-        <div class="container border border-fluid">
-            <h1>Total number of Answers:</h1>
-                <p>{{data.answerCount}}</p>
-            </div>
-    
-            <div class="container border border-fluid">
-                <h1>Total number of Users:</h1>
-                    <p>{{data.userCount}}</p>
-                </div>
-    
-     <div class="container border border-fluid">
-    <h1>User who got the most Votes for all his/her questions</h1>
-        <p>User ID: {{data.bestUser.id}}</p>
-        <p>User email: {{data.bestUser.email}}</p>
-        <p>Total voting on best question: {{data.bestUser.totalVotes}}</p>
-        
-    </div>
-    
-    
-    <div class="container border border-fluid">
-    <h1>Best rated Question</h1>
-        <p>Title of best question: {{data.bestUserQuestion.title}}</p>
-        <p>Total voting on best question: {{data.bestUserQuestion.totalVotes}}</p>
-        <br>
-        <p><b>Question-Author Details:</b></p>
-        <p>User ID: {{data.bestUserQuestion.id}}</p>
-        <p>User Email: {{data.bestUserQuestion.email}}</p>
-    </div>
-    
-    <div class="container border border-fluid">
-        <h1>Best rated Answer</h1>
-            <p>Title of best question: {{data.bestUserAnswer.title}}</p>
-            <p>Total voting on best question: {{data.bestUserAnswer.totalVotes}}</p>
-            <br>
-            <p><b>Question-Author Details:</b></p>
-            <p>User ID: {{data.bestUserAnswer.id}}</p>
-            <p>User Email: {{data.bestUserAnswer.email}}</p>
-        </div>
+    <h1 style="text-align: center; margin-bottom: 20px;">Statistics</h1>
+
+    <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">Total number of asked Questions:</td>
+            <td style="padding-left: 10px;">{{ data.questionCount }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">Total number of Answers:</td>
+            <td style="padding-left: 10px;">{{ data.answerCount }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">Total number of Users:</td>
+            <td style="padding-left: 10px;">{{ data.userCount }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">User who got the most Votes for all questions:</td>
+            <td style="padding-left: 10px;">{{ data.bestUser.id }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">Total votings for questions/answers:</td>
+            <td style="padding-left: 10px;">{{ data.bestUser.totalVotes }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">User email:</td>
+            <td style="padding-left: 10px;">{{ data.bestUser.email }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">Best rated Question:</td>
+            <td style="padding-left: 10px;">{{ data.bestUserQuestion.title }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">Total voting on best question:</td>
+            <td style="padding-left: 10px;">{{ data.bestUserQuestion.totalVotes }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">User ID (Best Question):</td>
+            <td style="padding-left: 10px;">{{ data.bestUserQuestion.id }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">User Email (Best Question):</td>
+            <td style="padding-left: 10px;">{{ data.bestUserQuestion.email }}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; padding-left: 10px;">Best rated Answer:</td>
+            <td style="padding-left: 10px;">{{ data.bestUserAnswer.title }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">Total voting on best answer:</td>
+            <td style="padding-left: 10px;">{{ data.bestUserAnswer.totalVotes }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">User ID (Best Answer):</td>
+            <td style="padding-left: 10px;">{{ data.bestUserAnswer.id }}</td>
+        </tr>
+        <tr>
+            <td style="padding-left: 10px;">User Email (Best Answer):</td>
+            <td style="padding-left: 10px;">{{ data.bestUserAnswer.email }}</td>
+        </tr>
+    </table>
+
+    <p style="text-align: center; margin-top: 20px;"><a href="{{ path('export_route') }}" style="display: inline-block; padding: 10px; background-color: #007bff; color: #fff; text-decoration: none;">Export</a></p>
 </body>
-</html> #}
+</html>

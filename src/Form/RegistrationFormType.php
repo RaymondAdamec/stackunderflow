@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\File;
 
 class RegistrationFormType extends AbstractType
@@ -20,11 +21,30 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('first_name')
-            ->add('last_name')
+            ->add('email', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Please insert email',
+                ],
+            ])
+            ->add('first_name', TextType::class, [
+                'label' => 'First Name',
+                'attr' => [
+                    'placeholder' => 'Please insert first name',
+                ],
+            ])
+            ->add('last_name', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Please insert last name',
+                ],
+            ])
+            ->add('gitHubProfile', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Please insert your GitHub profile name',
+                    'required' => false,
+                ],
+            ])
+
             ->add('picture', FileType::class, [
-                // 'attr' => ['class' => 'form-control'], // do we need this line?! just styling
                 'label' => 'Avatar images',
                 'mapped' => false,
                 'required' => false,
@@ -49,10 +69,11 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'Please enter a password',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -60,7 +81,6 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],

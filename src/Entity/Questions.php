@@ -25,7 +25,7 @@ class Questions
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column]

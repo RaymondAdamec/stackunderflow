@@ -31,14 +31,19 @@ class UserAccessController extends AbstractController
         ]);
     }
 
-    #[Route('/user', name: 'app_user', methods: ['GET', "POST"])]
-    public function userProfile(EntityManagerInterface $entityManager, Request $request, UserRepository $userRepository, FileUploader2 $fileUploader2): Response
-    {
+    #[Route('/user', name: 'app_user', methods: ['GET', 'POST'])]
+    public function userProfile(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        UserRepository $userRepository,
+        FileUploader2 $fileUploader2
+    ): Response {
         $isBanned = $this->getUser()->getIsBanned();
 
         if ($isBanned) {
             return $this->render('banned/index.html.twig');
         }
+
         //get user Id
         $user = $this->getUser();
         if ($user) {
@@ -60,24 +65,12 @@ class UserAccessController extends AbstractController
         // find all questions of specfic user
         $totalAnswers = $userRepository->findAnswersOfUser($userId);
 
-
-
         $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['edit_mode' => true]);
         $form->handleRequest($request);
 
-        return $this->render('user_access/user_profile.html.twig', [
-            'user' => $user,
-            'form' => $form,
-            'totalVoting' => $totalVoting,
-            'totalQuestions' => $totalQuestions,
-            'totalAnswers' => $totalAnswers
-
-        ]);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Remove the encoding of the plain password from here
             $user->setFirstName($form->get('firstName')->getData());
             $user->setLastName($form->get('lastName')->getData());
             $user->setEmail($form->get('email')->getData());
@@ -96,16 +89,15 @@ class UserAccessController extends AbstractController
                 'totalVoting' => $totalVoting,
                 'totalQuestions' => $totalQuestions,
                 'totalAnswers' => $totalAnswers
-
             ]);
         }
 
-
-
         return $this->render('user_access/user_profile.html.twig', [
             'user' => $user,
-            'form' => $form
-
+            'form' => $form,
+            'totalVoting' => $totalVoting,
+            'totalQuestions' => $totalQuestions,
+            'totalAnswers' => $totalAnswers
         ]);
     }
 }
