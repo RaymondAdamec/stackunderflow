@@ -2,10 +2,16 @@
 
 {% block title %}Tags index{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/registerForm.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
 {% block body %}
-    <h1>Tags index</h1>
+    <h1 class="text-center my-4">Tags index</h1>
 
-    <table class="table">
+
+<div class="container">
+ <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,8 +27,7 @@
                 <td>{{ tag.title }}</td>
                 <td>{{ tag.description }}</td>
                 <td>
-                    <a href="{{ path('app_tags_show', {'id': tag.id}) }}">show</a>
-                    <a href="{{ path('app_tags_edit', {'id': tag.id}) }}">edit</a>
+                    <a class="btn btn-warning" href="{{ path('app_tags_edit', {'id': tag.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +37,8 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+   
 
-    <a href="{{ path('app_tags_new') }}">Create new</a>
+    <div class="d-flex justify-content-center my-3"><a class="btn btn-primary" href="{{ path('app_tags_new') }}">Create new</a></div>
 {% endblock %}

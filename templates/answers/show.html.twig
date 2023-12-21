@@ -5,14 +5,13 @@
 {% block title %}Answers
 {% endblock %}
 {% block body %}
-	<br>
 
-	<h1 class="text-center">Answer details</h1>
-	<div class="container d-flex justify-content-center align-items-center" style="width: 500px;">
-		<div class="text-center">
-			<div class="card mb-3 mx-auto" style="max-width: 100%;">
+	<h1 class="text-center my-4">Answer details</h1>
+	<div class="container d-flex justify-content-center align-items-center">
+		<div class="text-start">
+			<div class="card mb-3 mx-auto" style="width: 45rem">
 				<div class="row g-0">
-					<div class="col-8 border-start ps-0">
+					<div class="col-12 border-start ps-0">
 						<div class="card-body">
 							<h5 class="card-title">Topic:
 								{{ answer.title }}</h5><hr>
@@ -27,7 +26,7 @@
 								{% endif %}
 							</p><hr>
 							<p class="card-text">
-								<strong>Description:</strong>
+								<strong>Text:</strong>
 								{{ answer.text }}
 							</p><hr>
 							<div class="col-md-4">
